@@ -1,4 +1,5 @@
 #include <random>
+#include <iostream>
 #include "./fclayer.h"
 
 namespace ai{
@@ -33,6 +34,11 @@ namespace ai{
         auto we_error = alg::mat_prod(input_data.transpose(), out_error);
 
         // Update
+        /*
+        std::cout << "UPDATE BY:";
+        (we_error * alpha).display();
+        std::cout << std::endl;
+        */
         weights_mat = weights_mat - (we_error * alpha);
 
         // Return error
@@ -41,5 +47,9 @@ namespace ai{
     // Setters
     void FCLayer::set_weights(alg::Matrix &w) {
         weights_mat = w;
+    }
+    // Getters
+    alg::Matrix FCLayer::get_weights() {
+        return weights_mat;
     }
 }

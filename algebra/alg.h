@@ -37,11 +37,14 @@ namespace alg
             Matrix transpose();
             // Apply function (element-wise)
             Matrix apply(t_t2t func);
+            // Sum
+            t_type sum();
             // Display
             void display();
 
 
             Matrix operator*(const t_type&);
+            Matrix operator*(const Matrix&);
             Matrix operator-(const Matrix&);
 
             // Friend functions
@@ -51,7 +54,7 @@ namespace alg
     Matrix mat_prod(Matrix a, Matrix b);    
 
     // Define extra types
-        using t_mm2t  = std::function<t_type(Matrix&,Matrix&)>;
+    using t_mm2m  = std::function<Matrix(Matrix&,Matrix&)>;
 }
 
 #endif

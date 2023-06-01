@@ -82,7 +82,16 @@ namespace alg
         // Return transformed
         return transformed;
     }
-
+    // Sum
+    t_type Matrix::sum() {
+        t_type res = 0;
+        for (auto &row : this->tensor) {
+            for (auto &e : row) {
+                res += e;
+            }
+        }
+        return res;
+    }
     // Display
     void Matrix::display() {
         for (auto &row : this->tensor) {
@@ -105,6 +114,31 @@ namespace alg
             for (int col = 0; col < cols; col++)
             {
                 tmp.tensor[row][col] = this->tensor[row][col] * x;
+            }
+        }
+
+        // Return transposed
+        return tmp;
+    }
+
+    Matrix Matrix::operator*(const Matrix& other) {
+        // Temp vector
+        if (get_rows() != other.get_rows()) {
+            throw std::invalid_argument("matrix-: rows missmatch");
+        }
+        if (get_cols() != other.get_cols()) {
+            throw std::invalid_argument("matrix-: cols missmatch");
+        }
+        auto cols = this->get_cols();
+        auto rows = this->get_rows();
+        Matrix tmp(rows, cols);
+
+        // Populate vector
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                tmp.tensor[row][col] = this->tensor[row][col] * other.tensor[row][col];
             }
         }
 

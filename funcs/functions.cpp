@@ -10,7 +10,15 @@ alg::t_type relu_drv(alg::t_type x){
     else {return 0;}
 }
 
-alg::t_type mse(alg::Matrix &a, alg::Matrix &b) {
+alg::t_type hypertan(alg::t_type x){
+    return std::tanh(x);
+}
+
+alg::t_type hypertan_drv(alg::t_type x){
+    return 1-std::pow(std::tanh(x),2);
+}
+
+alg::Matrix mse(alg::Matrix &a, alg::Matrix &b) {
     // Validate
     if (a.get_rows() != b.get_rows()) {
         throw std::invalid_argument("mse: rows missmatch");
@@ -19,22 +27,24 @@ alg::t_type mse(alg::Matrix &a, alg::Matrix &b) {
         throw std::invalid_argument("mse: cols missmatch");
     }
     // MSE
-    alg::t_type mse = 0;
-    alg::t_type n = a.get_rows()* a.get_cols();
-    for (auto r = 0; r < a.get_rows(); r++)
+    auto mse = alg::Matrix(1, a.get_cols());
+    alg::t_type n = a.get_cols();
+    for (auto c = 0; c < a.get_cols(); c++)
     {
-        for (auto c = 0; c < a.get_cols(); c++)
+        alg::t_type tmp = 0;
+        for (auto r = 0; r < a.get_rows(); r++)
         {
-            // (y-y')**2
-            mse += std::pow((a.get_val(r,c)-b.get_val(r,c)),2);
+            // (y_true-y_pred)**2
+            tmp += std::pow((a.get_val(r,c)-b.get_val(r,c)),2);
         }
+        mse.set_val(0,c,tmp);
     }
-    mse = mse/n; // 1/n * SUM{(y-y')**2} 
+    mse = mse * (1/n); // 1/n * SUM{(y-y')**2} 
     // Return
     return mse;
 }
 
-alg::t_type mse_drv(alg::Matrix &a, alg::Matrix &b) {
+alg::Matrix mse_drv(alg::Matrix &a, alg::Matrix &b) {
     // Validate
     if (a.get_rows() != b.get_rows()) {
         throw std::invalid_argument("mse_drv: rows missmatch");
@@ -42,18 +52,20 @@ alg::t_type mse_drv(alg::Matrix &a, alg::Matrix &b) {
     if (a.get_cols() != b.get_cols()) {
         throw std::invalid_argument("mse_drv: cols missmatch");
     }
-    // MSE drv
-    alg::t_type mse_drv = 0;
-    alg::t_type n = a.get_rows()* a.get_cols();
-    for (auto r = 0; r < a.get_rows(); r++)
+    // MSE DRV
+    auto mse_drv = alg::Matrix(1, a.get_rows());
+    alg::t_type n = a.get_cols();
+    for (auto c = 0; c < a.get_cols(); c++)
     {
-        for (auto c = 0; c < a.get_cols(); c++)
+        alg::t_type tmp = 0;
+        for (auto r = 0; r < a.get_rows(); r++)
         {
-            // (y-y')
-            mse_drv += (a.get_val(r,c)-b.get_val(r,c));
+            // (y_pred-y_true)
+            tmp += (b.get_val(r,c)-a.get_val(r,c));
         }
+        mse_drv.set_val(0,c,tmp);
     }
-    mse_drv = 2*mse_drv/n; // 2/n * SUM{(y-y')}
+    mse_drv = mse_drv * (2/n); // 2/n * SUM{(y-y')}
     // Return
     return mse_drv;
 }
