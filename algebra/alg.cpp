@@ -18,12 +18,12 @@ namespace alg
     };
 
     // Getters
-    t_dim Matrix::get_rows() {
+    t_dim Matrix::get_rows() const {
         if (tensor.size() == 0) return 0;
         return this->tensor.size();
     }
 
-    t_dim Matrix::get_cols() {
+    t_dim Matrix::get_cols() const {
         if (tensor.size() == 0) return 0;
         return this->tensor[0].size();
     }
@@ -93,6 +93,49 @@ namespace alg
         }
     }
 
+    Matrix Matrix::operator*(const t_type& x) {
+        // Temp vector
+        auto cols = this->get_cols();
+        auto rows = this->get_rows();
+        Matrix tmp(rows, cols);
+
+        // Populate vector
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                tmp.tensor[row][col] = this->tensor[row][col] * x;
+            }
+        }
+
+        // Return transposed
+        return tmp;
+    }
+
+    Matrix Matrix::operator-(const Matrix& other) {
+        // Temp vector
+        if (get_rows() != other.get_rows()) {
+            throw std::invalid_argument("matrix-: rows missmatch");
+        }
+        if (get_cols() != other.get_cols()) {
+            throw std::invalid_argument("matrix-: cols missmatch");
+        }
+        auto cols = this->get_cols();
+        auto rows = this->get_rows();
+        Matrix tmp(rows, cols);
+
+        // Populate vector
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                tmp.tensor[row][col] = this->tensor[row][col] - other.tensor[row][col];
+            }
+        }
+
+        // Return transposed
+        return tmp;
+    }
 
     Matrix mat_prod(Matrix a, Matrix b)
     {

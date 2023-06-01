@@ -8,7 +8,7 @@ namespace ai{
         weights_mat{inp_size, out_size}
         {
             // Generate random number generator
-            alg::t_type lower_bound = 0;
+            alg::t_type lower_bound = -1;
             alg::t_type upper_bound = 1;
             std::uniform_real_distribution<alg::t_type> unif(lower_bound, upper_bound);
             std::default_random_engine re;
@@ -21,15 +21,25 @@ namespace ai{
             }
         }
     // Forward Propagation
-    void FCLayer::forward_propagation() {
-        output_mat = alg::mat_prod(input_mat, weights_mat);
+    alg::Matrix FCLayer::forward_propagation_implementation(alg::Matrix &im) {
+        return alg::mat_prod(im, weights_mat);
     }
     // Backward Propagation
-    void FCLayer::backward_propagation() {
+    alg::Matrix FCLayer::backward_propagation(alg::Matrix &out_error, alg::t_type alpha) {
         // TODO
+        
+        // Calc error
+        auto in_error = alg::mat_prod(out_error, weights_mat.transpose());
+        auto we_error = alg::mat_prod(input_data.transpose(), out_error);
+
+        // Update
+        weights_mat = weights_mat - (we_error * alpha);
+
+        // Return error
+        return in_error;
     }
     // Setters
-    void FCLayer::set_weights(alg::Matrix w) {
+    void FCLayer::set_weights(alg::Matrix &w) {
         weights_mat = w;
     }
 }
