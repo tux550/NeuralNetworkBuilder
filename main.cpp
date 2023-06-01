@@ -19,14 +19,14 @@ int main() {
     b.display();
 
     // Create Network
-    auto nw = ai::Network();
+    auto nw = ai::Network(mse, mse_drv);
 
     // Add layers
-    std::shared_ptr<ai::FCLayer> fc1 ( new ai::FCLayer(3.0,2.0) );
-    std::shared_ptr<ai::ActLayer> act1 ( new ai::ActLayer(3.0, relu, relu_drv) );
-    std::shared_ptr<ai::FCLayer> fc2 ( new ai::FCLayer(2.0,1.0) );
-    fc1->set_weights(b);
-    fc2->set_weights(c);
+    std::shared_ptr<ai::BaseLayer> fc1 = std::make_shared<ai::FCLayer>(3.0,2.0);
+    std::shared_ptr<ai::BaseLayer> act1 = std::make_shared<ai::ActLayer>(3.0, relu, relu_drv);
+    std::shared_ptr<ai::BaseLayer> fc2 = std::make_shared<ai::FCLayer>(2.0,1.0);
+    std::dynamic_pointer_cast<ai::FCLayer> (fc1) ->set_weights(b);
+    std::dynamic_pointer_cast<ai::FCLayer> (fc2) ->set_weights(c);
     nw.add_layer(fc1);
     nw.add_layer(act1);
     nw.add_layer(fc2);

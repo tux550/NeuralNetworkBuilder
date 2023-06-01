@@ -3,7 +3,11 @@
 namespace ai
 {
     // Constructor
-    Network::Network(): layers{} {}
+    Network::Network(alg::t_mm2t _loss, alg::t_mm2t _loss_drv):
+        layers{},
+        loss{_loss},
+        loss_drv{_loss_drv}
+        {}
     // Destructor
     Network::~Network() {}
     // Add layer

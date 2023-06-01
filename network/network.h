@@ -13,10 +13,12 @@ namespace ai
     class Network
     {
         private:
-            vec_layers layers;
+            vec_layers  layers;
+            alg::t_mm2t loss;
+            alg::t_mm2t loss_drv;
         public:
             // Constructor
-            Network();
+            Network(alg::t_mm2t _loss, alg::t_mm2t _loss_drv);
             // Destructor
             ~Network();
 
