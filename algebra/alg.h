@@ -14,6 +14,7 @@ namespace alg
     using t_row  = std::vector<t_type>;
     using t_mat  = std::vector<t_row>;
     using t_t2t  = std::function<t_type(t_type)>;
+    using t_mm2t  = std::function<t_type(t_mat,t_mat)>;
 
     // Define tensor class
     class Matrix
