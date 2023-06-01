@@ -2,18 +2,12 @@
 
 namespace alg
 {
-    // Define types
-    using alg_dim  = int;
-    using alg_type = double;
-    using alg_row  = std::vector<alg_type>;
-    using alg_mat  = std::vector<alg_row>;
-
-    Matrix::Matrix(alg_dim _rows, alg_dim _cols) {
+    Matrix::Matrix(t_dim _rows, t_dim _cols) {
         // Create tensor
-        this->tensor = alg_mat(_rows, alg_row(_cols));
+        this->tensor = t_mat(_rows, t_row(_cols));
     }
 
-    Matrix::Matrix(alg_mat _tensor) {
+    Matrix::Matrix(t_mat _tensor) {
         // Create tensor
         this->tensor = _tensor;
     }
@@ -24,14 +18,23 @@ namespace alg
     };
 
     // Getters
-    alg_dim Matrix::get_rows() {
+    t_dim Matrix::get_rows() {
         if (tensor.size() == 0) return 0;
         return this->tensor.size();
     }
 
-    alg_dim Matrix::get_cols() {
+    t_dim Matrix::get_cols() {
         if (tensor.size() == 0) return 0;
         return this->tensor[0].size();
+    }
+
+    t_type Matrix::get_val(t_dim r, t_dim c) {
+        return tensor[r][c];
+    }
+
+    // Setters
+    void Matrix::set_val(t_dim r, t_dim c, t_type val) {
+        tensor[r][c] = val;
     }
 
     // Transpose
@@ -61,12 +64,23 @@ namespace alg
     }
 
     // Apply function (element-wise)
-    void Matrix::apply(std::function<alg_type(alg_type)> func) {
-        for (auto &row : this->tensor) {
-            for (auto &e : row) {
-                e = func(e);
+    Matrix Matrix::apply(t_t2t func) {
+        // Temp vector
+        auto cols = this->get_cols();
+        auto rows = this->get_rows();
+        Matrix transformed(rows, cols);
+
+        // Populate vector
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                transformed.tensor[row][col] = func(tensor[row][col]);
             }
-        } 
+        }
+
+        // Return transformed
+        return transformed;
     }
 
     // Display
@@ -88,9 +102,9 @@ namespace alg
         }
 
         // Get dims
-        alg_dim dim_m = a.get_rows();
-        alg_dim dim_k = a.get_cols();
-        alg_dim dim_n = b.get_cols();
+        t_dim dim_m = a.get_rows();
+        t_dim dim_k = a.get_cols();
+        t_dim dim_n = b.get_cols();
 
         // Init result Tensor
         Matrix res(dim_m,dim_n);
@@ -107,5 +121,6 @@ namespace alg
 
         // Return
         return res;
-    }    
+    }
+
 }

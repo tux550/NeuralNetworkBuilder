@@ -9,30 +9,34 @@
 namespace alg
 {
     // Define types
-    using alg_dim  = int;
-    using alg_type = double;
-    using alg_row  = std::vector<alg_type>;
-    using alg_mat  = std::vector<alg_row>;
+    using t_dim  = int;
+    using t_type = double;
+    using t_row  = std::vector<t_type>;
+    using t_mat  = std::vector<t_row>;
+    using t_t2t  = std::function<t_type(t_type)>;
 
     // Define tensor class
     class Matrix
     {
         private:
             // Matrix
-            alg_mat tensor;
+            t_mat tensor;
         public:
             // CONSTRUCTOR
-            Matrix(alg_dim _rows, alg_dim _cols);
-            Matrix(alg_mat _tensor);
+            Matrix(t_dim _rows, t_dim _cols);
+            Matrix(t_mat _tensor);
             // DESTRUCTOR
             ~Matrix();
             // Getters
-            alg_dim get_rows();
-            alg_dim get_cols();
+            t_dim get_rows();
+            t_dim get_cols();
+            t_type get_val(t_dim r, t_dim c);
+            // Setters
+            void set_val(t_dim r, t_dim c, t_type val);
             // Transpose
             Matrix transpose();
             // Apply function (element-wise)
-            void apply(std::function<alg_type(alg_type)> func);
+            Matrix apply(t_t2t func);
             // Display
             void display();
 
