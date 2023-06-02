@@ -118,7 +118,26 @@ namespace alg
             }
         }
 
-        // Return transposed
+        // Return result
+        return tmp;
+    }
+
+    Matrix Matrix::operator+(const t_type& x) {
+        // Temp vector
+        auto cols = this->get_cols();
+        auto rows = this->get_rows();
+        Matrix tmp(rows, cols);
+
+        // Populate vector
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                tmp.tensor[row][col] = this->tensor[row][col] + x;
+            }
+        }
+
+        // Return result
         return tmp;
     }
 
@@ -142,6 +161,33 @@ namespace alg
             for (int col = 0; col < cols; col++)
             {
                 tmp.tensor[row][col] = this->tensor[row][col] * other.tensor[row][col];
+            }
+        }
+
+        // Return transposed
+        return tmp;
+    }
+
+    Matrix Matrix::operator+(const Matrix& other) {
+        // Temp vector
+        if (get_rows() != other.get_rows()) {
+            std::string error_message = "matrix+: cols missmatch" + std::to_string(get_rows()) + ":" + std::to_string(other.get_rows());
+            throw std::invalid_argument(error_message);
+        }
+        if (get_cols() != other.get_cols()) {
+            std::string error_message = "matrix+: cols missmatch" + std::to_string(get_cols()) + ":" + std::to_string(other.get_cols());
+            throw std::invalid_argument(error_message);
+        }
+        auto cols = this->get_cols();
+        auto rows = this->get_rows();
+        Matrix tmp(rows, cols);
+
+        // Populate vector
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                tmp.tensor[row][col] = this->tensor[row][col] + other.tensor[row][col];
             }
         }
 

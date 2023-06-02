@@ -44,7 +44,9 @@ namespace alg
 
 
             Matrix operator*(const t_type&);
+            Matrix operator+(const t_type&);
             Matrix operator*(const Matrix&);
+            Matrix operator+(const Matrix&);
             Matrix operator-(const Matrix&);
 
             // Friend functions

@@ -6,7 +6,8 @@ namespace ai{
     // Constructor
     FCLayer::FCLayer(alg::t_dim inp_size, alg::t_dim out_size):
         BaseLayer{inp_size,out_size},
-        weights_mat{inp_size, out_size}
+        weights_mat{inp_size, out_size},
+        bias{1, out_size}
         {
             // Generate random number generator
             alg::t_type lower_bound = 0;
@@ -20,10 +21,15 @@ namespace ai{
                     weights_mat.set_val(r,c,val);
                 }
             }
+            // Generate random bias
+            for (auto c=0; c<out_size; c++) {
+                auto val = unif(re);
+                bias.set_val(0,c,val);
+            }
         }
     // Forward Propagation
     alg::Matrix FCLayer::forward_propagation_implementation(alg::Matrix &im) {
-        return alg::mat_prod(im, weights_mat);
+        return alg::mat_prod(im, weights_mat)+bias;
     }
     // Backward Propagation
     alg::Matrix FCLayer::backward_propagation(alg::Matrix &out_error, alg::t_type alpha) {
@@ -34,12 +40,9 @@ namespace ai{
         auto we_error = alg::mat_prod(input_data.transpose(), out_error);
 
         // Update
-        /*
-        std::cout << "UPDATE BY:";
-        (we_error * alpha).display();
-        std::cout << std::endl;
-        */
         weights_mat = weights_mat - (we_error * alpha);
+        bias        = bias - (out_error * alpha);
+
         // Return error
         return in_error;
     }
