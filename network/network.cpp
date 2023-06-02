@@ -26,28 +26,33 @@ namespace ai
         return res;
     }
     // Fit
-    void Network::fit(vec_mat &x_train, vec_mat &y_train, t_count epochs, alg::t_type alpha) {
+    void Network::fit(vec_mat &x_train, vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr) {
         // Epochs
         for (t_count i = 0; i < epochs; i++)
         {
-            std::cout << "Epoch: " << i << std::endl;
             alg::t_type error_total = 0;
             for (t_count j = 0; j < x_train.size(); j++) {
                 // Forward Propagation
+                //std::cout << "FORWARD PROPAGATION" << std::endl;
                 auto res = predict(x_train[j]);
-                std::cout << "RES:"; res.display();
                 // Error
+                //std::cout << "ERROR" << std::endl;
                 error_total += loss(y_train[j], res).sum();
                 // Backward Propagation
+                //std::cout << "LOSS DRV" << std::endl;
+                //res.display();
                 auto error = loss_drv(y_train[j], res);
-                //std::cout << "ERROR MAT";
-                //error.display(); 
+                //error.display();
+                //std::cout << "BACKWARD PROPAGATION" << std::endl;
                 for (int k = layers.size()-1; k>= 0; k--){
-                //for (auto &l : layers) {
+                    //std::cout << "LAYER:" << k  << std::endl;
                     error = layers[k]->backward_propagation(error, alpha);
                 } 
             }
-            std::cout << "Error: " << error_total << std::endl;
+            if (i%epoch_intr == 0) {
+                std::cout << "Epoch: " << i << std::endl;
+                std::cout << "Error: " << error_total << std::endl;
+            }
         }
         
     }

@@ -9,7 +9,7 @@ namespace ai{
         weights_mat{inp_size, out_size}
         {
             // Generate random number generator
-            alg::t_type lower_bound = -1;
+            alg::t_type lower_bound = 0;
             alg::t_type upper_bound = 1;
             std::uniform_real_distribution<alg::t_type> unif(lower_bound, upper_bound);
             std::default_random_engine re;
@@ -40,7 +40,6 @@ namespace ai{
         std::cout << std::endl;
         */
         weights_mat = weights_mat - (we_error * alpha);
-
         // Return error
         return in_error;
     }

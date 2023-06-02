@@ -1,3 +1,4 @@
+#include <string>
 #include "alg.h"
 
 namespace alg
@@ -124,10 +125,12 @@ namespace alg
     Matrix Matrix::operator*(const Matrix& other) {
         // Temp vector
         if (get_rows() != other.get_rows()) {
-            throw std::invalid_argument("matrix-: rows missmatch");
+            std::string error_message = "matrix-: cols missmatch" + std::to_string(get_rows()) + ":" + std::to_string(other.get_rows());
+            throw std::invalid_argument(error_message);
         }
         if (get_cols() != other.get_cols()) {
-            throw std::invalid_argument("matrix-: cols missmatch");
+            std::string error_message = "matrix-: cols missmatch" + std::to_string(get_cols()) + ":" + std::to_string(other.get_cols());
+            throw std::invalid_argument(error_message);
         }
         auto cols = this->get_cols();
         auto rows = this->get_rows();
@@ -149,10 +152,12 @@ namespace alg
     Matrix Matrix::operator-(const Matrix& other) {
         // Temp vector
         if (get_rows() != other.get_rows()) {
-            throw std::invalid_argument("matrix-: rows missmatch");
+            std::string error_message = "matrix-: cols missmatch" + std::to_string(get_rows()) + ":" + std::to_string(other.get_rows());
+            throw std::invalid_argument(error_message);
         }
         if (get_cols() != other.get_cols()) {
-            throw std::invalid_argument("matrix-: cols missmatch");
+            std::string error_message = "matrix-: cols missmatch" + std::to_string(get_cols()) + ":" + std::to_string(other.get_cols());
+            throw std::invalid_argument(error_message);
         }
         auto cols = this->get_cols();
         auto rows = this->get_rows();

@@ -53,7 +53,7 @@ alg::Matrix mse_drv(alg::Matrix &a, alg::Matrix &b) {
         throw std::invalid_argument("mse_drv: cols missmatch");
     }
     // MSE DRV
-    auto mse_drv = alg::Matrix(1, a.get_rows());
+    auto mse_drv = alg::Matrix(1, a.get_cols());
     alg::t_type n = a.get_cols();
     for (auto c = 0; c < a.get_cols(); c++)
     {

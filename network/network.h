@@ -29,7 +29,7 @@ namespace ai
             // Predict
             alg::Matrix predict(alg::Matrix &inp);
             // Fit
-            void fit(vec_mat &x_train, vec_mat &y_train, t_count epochs, alg::t_type alpha);
+            void fit(vec_mat &x_train, vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr = 100);
     };
 
 }
