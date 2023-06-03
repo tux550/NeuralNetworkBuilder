@@ -3,20 +3,16 @@
 
 namespace alg
 {
-    Matrix::Matrix(t_dim _rows, t_dim _cols) {
-        // Create tensor
-        this->tensor = t_mat(_rows, t_row(_cols));
-    }
+    Matrix::Matrix(t_dim _rows, t_dim _cols):
+        tensor{_rows, t_row(_cols)}
+        {}
 
-    Matrix::Matrix(t_mat _tensor) {
-        // Create tensor
-        this->tensor = _tensor;
-    }
+    Matrix::Matrix(t_mat _tensor):
+        tensor{_tensor}
+        {}
             
     // DESTRUCTOR
-    Matrix::~Matrix() {
-        // Delete tensor
-    };
+    Matrix::~Matrix() = default;
 
     // Getters
     t_dim Matrix::get_rows() const {
@@ -86,7 +82,7 @@ namespace alg
     // Sum
     t_type Matrix::sum() {
         t_type res = 0;
-        for (auto &row : this->tensor) {
+        for (auto &row : tensor) {
             for (auto &e : row) {
                 res += e;
             }
@@ -95,9 +91,9 @@ namespace alg
     }
     // Display
     void Matrix::display() {
-        for (auto &row : this->tensor) {
-            for (auto &e : row) {
-                std::cout << e << " ";
+        for (t_dim r=0; r<get_rows(); r++) {
+            for (t_dim c=0; c<get_cols(); c++) {
+                std::cout << get_val(r,c) << " ";
             }
             std::cout << std::endl;
         }
@@ -222,7 +218,7 @@ namespace alg
         return tmp;
     }
 
-    Matrix mat_prod(Matrix a, Matrix b)
+    Matrix mat_prod(Matrix &a, Matrix &b)
     {
         // Validate shape
         if (a.get_cols() != b.get_rows()) {

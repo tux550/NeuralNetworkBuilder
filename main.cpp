@@ -28,48 +28,6 @@ int get_maximum_index(alg::Matrix& y_pred) {
 }
 
 int main() {
-
-    ifstream XFile("datasets/x.csv");
-    ifstream YFile("datasets/y.csv");
-
-    string line;
-    string num;
-    char delim = ' '; 
-    
-    ai::vec_mat x_train{}; 
-    while (std::getline(XFile, line)) {
-        std::stringstream ss(line);
-        alg::t_mat tmp_mat{};
-        alg::t_row tmp_row{};
-        while (std::getline(ss, num, delim)) {
-            tmp_row.push_back( std::stod(num) );
-        }
-        tmp_mat.push_back(tmp_row);
-        x_train.push_back(alg::Matrix{tmp_mat});
-    }
-
-    ai::vec_mat y_train{}; 
-    while (std::getline(YFile, line)) {
-        std::stringstream ss(line);
-        alg::t_mat tmp_mat{};
-        alg::t_row tmp_row{};
-        while (std::getline(ss, num, delim)) {
-            tmp_row.push_back( std::stod(num) );
-        }
-        tmp_mat.push_back(tmp_row);
-        y_train.push_back(alg::Matrix{tmp_mat});
-    }
-
-    /*
-    for (auto &mat : x_train) {
-        mat.display();
-    }
-
-    for (auto &mat : y_train) {
-        mat.display();
-    }
-    */
-
     /*
     ai::vec_mat x_train = { 
         alg::Matrix( alg::t_mat{ {1,1}} ),
@@ -87,26 +45,61 @@ int main() {
     */
 
 
-
-
+    cout << "Init Layers" << endl;
+    ai::ptr_layer fc1  = std::make_shared<ai::FCLayer>(4.0,8.0);
+    ai::ptr_layer act1 = std::make_shared<ai::ActLayer>(8.0, hypertan, hypertan_drv); //relu, relu_drv);
+    ai::ptr_layer fc2  = std::make_shared<ai::FCLayer>(8.0,5.0);
+    ai::ptr_layer act2 = std::make_shared<ai::ActLayer>(5.0, hypertan, hypertan_drv); // relu, relu_drv);
+    ai::ptr_layer fc3  = std::make_shared<ai::FCLayer>(5.0,3.0);
+    ai::ptr_layer act3 = std::make_shared<ai::ActLayer>(3.0, hypertan, hypertan_drv); // relu, relu_drv);
+    cout << "End Layers" << endl;
 
     
-    std::shared_ptr<ai::BaseLayer> fc1 = std::make_shared<ai::FCLayer>(4.0,8.0);
-    std::shared_ptr<ai::BaseLayer> act1 = std::make_shared<ai::ActLayer>(8.0, hypertan, hypertan_drv); //relu, relu_drv);
-    std::shared_ptr<ai::BaseLayer> fc2 = std::make_shared<ai::FCLayer>(8.0,3.0);
-    std::shared_ptr<ai::BaseLayer> act2 = std::make_shared<ai::ActLayer>(3.0, hypertan, hypertan_drv); // relu, relu_drv);
-
     auto nw = ai::Network(mse, mse_drv);
     nw.add_layer(fc1);
     nw.add_layer(act1);
     nw.add_layer(fc2);
     nw.add_layer(act2);
+    nw.add_layer(fc3);
+    nw.add_layer(act3);
+
+    ifstream XFile("datasets/x.csv");
+    ifstream YFile("datasets/y.csv");
+
+    string line;
+    string num;
+    char delim = ' '; 
+
+    ai::vec_mat x_train{};
+    while (std::getline(XFile, line)) {
+        std::stringstream ss(line);
+        alg::t_mat tmp_mat{};
+        alg::t_row tmp_row{};
+        while (std::getline(ss, num, delim)) {
+            tmp_row.push_back( std::stod(num) );
+        }
+        tmp_mat.push_back(tmp_row);
+        x_train.push_back(alg::Matrix{tmp_mat});
+    }
+
+    ai::vec_mat y_train{};
+    while (std::getline(YFile, line)) {
+        std::stringstream ss(line);
+        alg::t_mat tmp_mat{};
+        alg::t_row tmp_row{};
+        while (std::getline(ss, num, delim)) {
+            tmp_row.push_back( std::stod(num) );
+        }
+        tmp_mat.push_back(tmp_row);
+        y_train.push_back(alg::Matrix{tmp_mat});
+    }
+
 
     std::cout << "INIT WEIGHTS OF L0" << endl;
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> get_weights().display();
     nw.predict( x_train[0] ).display();
     std::cout << "TRAIN" << endl;
-    nw.fit(x_train,y_train,1000,0.1);
+    nw.fit(x_train,y_train,5000,0.01);
     std::cout << "FINAL WEIGHTS OF L0" << endl;
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> 
     get_weights().display();
@@ -125,6 +118,9 @@ int main() {
     for (int i=0; i<3; i++) {
         cout << misses[i] / total[i] <<  std::endl;
     } 
+
+    
+    //nw.predict(X).display();
     /*
     auto a = alg::Matrix( alg::t_mat{ {1,2,3}} );
     auto b = alg::Matrix( alg::t_mat{{-5,2},{-4,4},{-3,1}});

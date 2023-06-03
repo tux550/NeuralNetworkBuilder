@@ -9,7 +9,7 @@
 namespace alg
 {
     // Define types
-    using t_dim  = int;
+    using t_dim  = unsigned long;
     using t_type = double;
     using t_row  = std::vector<t_type>;
     using t_mat  = std::vector<t_row>;
@@ -50,10 +50,10 @@ namespace alg
             Matrix operator-(const Matrix&);
 
             // Friend functions
-            friend Matrix mat_prod (Matrix,Matrix);
+            friend Matrix mat_prod (Matrix &a,Matrix &b);
     };
 
-    Matrix mat_prod(Matrix a, Matrix b);    
+    Matrix mat_prod(Matrix &a, Matrix &b);    
 
     // Define extra types
     using t_mm2m  = std::function<Matrix(Matrix&,Matrix&)>;

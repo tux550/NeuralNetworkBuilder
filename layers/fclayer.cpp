@@ -36,8 +36,10 @@ namespace ai{
         // TODO
         
         // Calc error
-        auto in_error = alg::mat_prod(out_error, weights_mat.transpose());
-        auto we_error = alg::mat_prod(input_data.transpose(), out_error);
+        auto wt = weights_mat.transpose();
+        auto in_error = alg::mat_prod(out_error, wt);
+        auto input_data_t = input_data.transpose();
+        auto we_error = alg::mat_prod(input_data_t, out_error);
 
         // Update
         weights_mat = weights_mat - (we_error * alpha);

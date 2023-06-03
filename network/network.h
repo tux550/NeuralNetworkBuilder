@@ -7,7 +7,7 @@
 
 namespace ai
 {
-    using ptr_layer  = std::shared_ptr<BaseLayer>;
+    using ptr_layer  = std::shared_ptr<ai::BaseLayer>;
     using vec_layers = std::vector<ptr_layer>;
     using vec_mat    = std::vector<alg::Matrix>;
     using t_count    = int;
