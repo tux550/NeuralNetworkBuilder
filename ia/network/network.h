@@ -27,7 +27,7 @@ namespace ai
             // Add layer
             void add_layer(ptr_layer layer);
             // Predict
-            alg::Matrix predict(alg::Matrix &inp);
+            alg::vec_mat predict(alg::vec_mat &inp);
             // Fit
             void fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr = 100);
     };

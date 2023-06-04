@@ -30,14 +30,12 @@ namespace ai{
         return alg::mat_prod(im, weights_mat)+bias;
     }
     // Backward Propagation
-    alg::Matrix FCLayer::backward_propagation(alg::Matrix &out_error, alg::t_type alpha) {
-        // TODO
-        
+    alg::Matrix FCLayer::backward_propagation_implementation(alg::Matrix &data, alg::Matrix &out_error, alg::t_type alpha) {
         // Calc error
         auto wt = weights_mat.transpose();
         auto in_error = alg::mat_prod(out_error, wt);
-        auto input_data_t = input_data.transpose();
-        auto we_error = alg::mat_prod(input_data_t, out_error);
+        auto data_transpose = data.transpose();
+        auto we_error = alg::mat_prod(data_transpose, out_error);
 
         // Update
         weights_mat = weights_mat - (we_error * alpha);

@@ -97,13 +97,30 @@ int main() {
 
     std::cout << "INIT WEIGHTS OF L0" << endl;
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> get_weights().display();
-    nw.predict( x_train[0] ).display();
+    //nw.predict( x_train[0] ).display();
     std::cout << "TRAIN" << endl;
     nw.fit(x_train,y_train,1000,0.01);
     std::cout << "FINAL WEIGHTS OF L0" << endl;
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> 
     get_weights().display();
+    
 
+    vector<double> misses(3);
+    vector<double> total(3);
+    auto res = nw.predict(x_train);
+    for (int ind = 0; ind < res.size(); ind ++) {
+        auto real = get_maximum_index( y_train[ind] );
+        if ( real != get_maximum_index( res[ind] ) ) {
+            misses[real] += 1;            
+        }
+        total[real] += 1;
+    }
+    cout << "Misses:" << endl;
+    for (int i=0; i<3; i++) {
+        cout << misses[i] / total[i] <<  std::endl;
+    } 
+
+    /*
     vector<double> misses(3);
     vector<double> total(3);
     for (int ind = 0; ind < x_train.size(); ind ++) {
@@ -118,6 +135,7 @@ int main() {
     for (int i=0; i<3; i++) {
         cout << misses[i] / total[i] <<  std::endl;
     } 
+    */
 
     
     //nw.predict(X).display();

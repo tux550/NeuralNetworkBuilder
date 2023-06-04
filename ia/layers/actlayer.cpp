@@ -14,7 +14,7 @@ namespace ai{
     }
 
     // Backward Propagation
-    alg::Matrix ActLayer::backward_propagation(alg::Matrix &out_error, alg::t_type alpha) {
-        return input_data.apply(drv_func) * out_error; // df(input) @ output_error
+    alg::Matrix ActLayer::backward_propagation_implementation(alg::Matrix &data, alg::Matrix &out_error, alg::t_type alpha) {
+        return data.apply(drv_func) * out_error; // df(input) @ output_error
     }
 }

@@ -16,8 +16,8 @@ namespace ai
         layers.push_back(layer);
     }
     // Predict 
-    alg::Matrix Network::predict(alg::Matrix &inp) {
-        alg::Matrix res = inp;
+    alg::vec_mat Network::predict(alg::vec_mat &inp) {
+        alg::vec_mat res = inp;
         for (auto &l : layers) {
             res = l->forward_propagation(res);
         }
@@ -29,6 +29,22 @@ namespace ai
         for (t_count i = 0; i < epochs; i++)
         {
             alg::t_type error_total = 0;
+            // Forward Propagation
+            auto res = predict(x_train);
+            // Error
+            alg::vec_mat error_vec;
+            for (t_count j = 0; j < y_train.size(); j++) {
+                error_total += loss(y_train[j], res[j]).sum();
+                auto error = loss_drv(y_train[j], res[j]);
+                error_vec.push_back(error);
+            }
+
+            // Backward Propagation
+            for (int k = layers.size()-1; k>= 0; k--){
+                //std::cout << "LAYER:" << k  << std::endl;
+                error_vec = layers[k]->backward_propagation(error_vec, alpha);
+            } 
+            /*
             for (t_count j = 0; j < x_train.size(); j++) {
                 // Forward Propagation
                 //std::cout << "FORWARD PROPAGATION" << std::endl;
@@ -47,6 +63,7 @@ namespace ai
                     error = layers[k]->backward_propagation(error, alpha);
                 } 
             }
+            */
             if (i%epoch_intr == 0) {
                 std::cout << "Epoch: " << i << std::endl;
                 std::cout << "Error: " << error_total << std::endl;
