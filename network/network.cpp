@@ -18,8 +18,8 @@ namespace ai
         layers.push_back(layer);
     }
     // Predict 
-    alg::Matrix Network::predict(alg::Matrix &inp) {
-        alg::Matrix res = inp;
+    alg::MultidimMatrix Network::predict(alg::MultidimMatrix &inp) {
+        alg::MultidimMatrix res = inp;
         for (auto &l : layers) {
             res = l->forward_propagation(res);
         }

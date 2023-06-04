@@ -9,12 +9,12 @@ namespace ai{
         {}
     
     // Forward Propagation
-    alg::Matrix ActLayer::forward_propagation_implementation(alg::Matrix &im) {
+    alg::MultidimMatrix ActLayer::forward_propagation_implementation(alg::MultidimMatrix &im) {
         return im.apply(act_func);
     }
 
     // Backward Propagation
-    alg::Matrix ActLayer::backward_propagation(alg::Matrix &out_error, alg::t_type alpha) {
+    alg::MultidimMatrix ActLayer::backward_propagation(alg::MultidimMatrix &out_error, alg::t_type alpha) {
         return input_data.apply(drv_func) * out_error; // df(input) @ output_error
     }
 }

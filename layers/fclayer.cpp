@@ -28,11 +28,11 @@ namespace ai{
             }
         }
     // Forward Propagation
-    alg::Matrix FCLayer::forward_propagation_implementation(alg::Matrix &im) {
+    alg::MultidimMatrix FCLayer::forward_propagation_implementation(alg::MultidimMatrix &im) {
         return alg::mat_prod(im, weights_mat)+bias;
     }
     // Backward Propagation
-    alg::Matrix FCLayer::backward_propagation(alg::Matrix &out_error, alg::t_type alpha) {
+    alg::MultidimMatrix FCLayer::backward_propagation(alg::MultidimMatrix &out_error, alg::t_type alpha) {
         // TODO
         
         // Calc error
@@ -49,11 +49,11 @@ namespace ai{
         return in_error;
     }
     // Setters
-    void FCLayer::set_weights(alg::Matrix &w) {
+    void FCLayer::set_weights(alg::MultidimMatrix &w) {
         weights_mat = w;
     }
     // Getters
-    alg::Matrix FCLayer::get_weights() {
+    alg::MultidimMatrix FCLayer::get_weights() {
         return weights_mat;
     }
 }

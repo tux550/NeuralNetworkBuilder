@@ -7,7 +7,7 @@ namespace ai{
         output_size{out_size}
         {}
     
-    alg::Matrix BaseLayer::forward_propagation(alg::Matrix &im){
+    alg::MultidimMatrix BaseLayer::forward_propagation(alg::MultidimMatrix &im){
         input_data = im;
         return forward_propagation_implementation(im);
     }

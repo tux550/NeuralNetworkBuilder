@@ -9,7 +9,7 @@ namespace ai
 {
     using ptr_layer  = std::shared_ptr<ai::BaseLayer>;
     using vec_layers = std::vector<ptr_layer>;
-    using vec_mat    = std::vector<alg::Matrix>;
+    using vec_mat    = std::vector<alg::MultidimMatrix>;
     using t_count    = int;
 
     class Network
@@ -27,7 +27,7 @@ namespace ai
             // Add layer
             void add_layer(ptr_layer layer);
             // Predict
-            alg::Matrix predict(alg::Matrix &inp);
+            alg::MultidimMatrix predict(alg::MultidimMatrix &inp);
             // Fit
             void fit(vec_mat &x_train, vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr = 100);
     };

@@ -14,7 +14,7 @@
 
 using namespace std;
 
-int get_maximum_index(alg::Matrix& y_pred) {
+int get_maximum_index(alg::MultidimMatrix& y_pred) {
     int res = 0;
     auto val = y_pred.get_val(0,0);
     for (int i=1; i<y_pred.get_cols(); i++) {
@@ -73,25 +73,25 @@ int main() {
     ai::vec_mat x_train{};
     while (std::getline(XFile, line)) {
         std::stringstream ss(line);
-        alg::t_mat tmp_mat{};
-        alg::t_row tmp_row{};
+        alg::t_containerp_mat{};
+        alg::t_container tmp_row{};
         while (std::getline(ss, num, delim)) {
             tmp_row.push_back( std::stod(num) );
         }
         tmp_mat.push_back(tmp_row);
-        x_train.push_back(alg::Matrix{tmp_mat});
+        x_train.push_back(alg::MultidimMatrix{tmp_mat});
     }
 
     ai::vec_mat y_train{};
     while (std::getline(YFile, line)) {
         std::stringstream ss(line);
-        alg::t_mat tmp_mat{};
-        alg::t_row tmp_row{};
+        alg::t_containerp_mat{};
+        alg::t_container tmp_row{};
         while (std::getline(ss, num, delim)) {
             tmp_row.push_back( std::stod(num) );
         }
         tmp_mat.push_back(tmp_row);
-        y_train.push_back(alg::Matrix{tmp_mat});
+        y_train.push_back(alg::MultidimMatrix{tmp_mat});
     }
 
 

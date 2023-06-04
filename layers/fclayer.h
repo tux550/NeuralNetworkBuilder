@@ -9,14 +9,14 @@ namespace ai{
     class FCLayer: public BaseLayer
     {
     private:
-        alg::Matrix weights_mat;
-        alg::Matrix bias;
+        alg::MultidimMatrix weights_mat;
+        alg::MultidimMatrix bias;
     public:
         FCLayer(alg::t_dim inp_size, alg::t_dim out_size);
-        alg::Matrix forward_propagation_implementation(alg::Matrix &im);
-        alg::Matrix backward_propagation(alg::Matrix &out_error, alg::t_type alpha);
-        void set_weights(alg::Matrix &w);
-        alg::Matrix get_weights();
+        alg::MultidimMatrix forward_propagation_implementation(alg::MultidimMatrix &im);
+        alg::MultidimMatrix backward_propagation(alg::MultidimMatrix &out_error, alg::t_type alpha);
+        void set_weights(alg::MultidimMatrix &w);
+        alg::MultidimMatrix get_weights();
     };
 }
 

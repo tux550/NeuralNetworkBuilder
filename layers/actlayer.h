@@ -13,8 +13,8 @@ namespace ai{
             alg::t_t2t drv_func;
         public:
             ActLayer(alg::t_dim n_size, alg::t_t2t _act_func, alg::t_t2t _drv_func);
-            alg::Matrix forward_propagation_implementation(alg::Matrix &im);
-            alg::Matrix backward_propagation(alg::Matrix &out_error, alg::t_type alpha);
+            alg::MultidimMatrix forward_propagation_implementation(alg::MultidimMatrix &im);
+            alg::MultidimMatrix backward_propagation(alg::MultidimMatrix &out_error, alg::t_type alpha);
     };
 };
 

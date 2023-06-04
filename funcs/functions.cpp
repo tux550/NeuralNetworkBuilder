@@ -18,7 +18,7 @@ alg::t_type hypertan_drv(alg::t_type x){
     return 1-std::pow(std::tanh(x),2);
 }
 
-alg::Matrix mse(alg::Matrix &a, alg::Matrix &b) {
+alg::MultidimMatrix mse(alg::MultidimMatrix &a, alg::MultidimMatrix &b) {
     // Validate
     if (a.get_rows() != b.get_rows()) {
         throw std::invalid_argument("mse: rows missmatch");
@@ -27,7 +27,7 @@ alg::Matrix mse(alg::Matrix &a, alg::Matrix &b) {
         throw std::invalid_argument("mse: cols missmatch");
     }
     // MSE
-    auto mse = alg::Matrix(1, a.get_cols());
+    auto mse = alg::MultidimMatrix(1, a.get_cols());
     alg::t_type n = a.get_cols();
     for (auto c = 0; c < a.get_cols(); c++)
     {
@@ -44,7 +44,7 @@ alg::Matrix mse(alg::Matrix &a, alg::Matrix &b) {
     return mse;
 }
 
-alg::Matrix mse_drv(alg::Matrix &a, alg::Matrix &b) {
+alg::MultidimMatrix mse_drv(alg::MultidimMatrix &a, alg::MultidimMatrix &b) {
     // Validate
     if (a.get_rows() != b.get_rows()) {
         throw std::invalid_argument("mse_drv: rows missmatch");
@@ -53,7 +53,7 @@ alg::Matrix mse_drv(alg::Matrix &a, alg::Matrix &b) {
         throw std::invalid_argument("mse_drv: cols missmatch");
     }
     // MSE DRV
-    auto mse_drv = alg::Matrix(1, a.get_cols());
+    auto mse_drv = alg::MultidimMatrix(1, a.get_cols());
     alg::t_type n = a.get_cols();
     for (auto c = 0; c < a.get_cols(); c++)
     {
