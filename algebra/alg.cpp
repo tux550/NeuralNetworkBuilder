@@ -79,13 +79,13 @@ namespace alg
         return dimensions;
     }
 
-    t_dim MultidimMatrix::get_index(t_dimvec &dims) {
+    t_dim MultidimMatrix::get_index(t_dimvec dims) {
         auto shape = get_shape();
         auto index = 0;
         auto factor = 1;
-        for (long long d = shape.size(); d>= 0; d--) {
+        for (long long d = shape.size()-1; d>= 0; d--) {
             index  += dims[d]*factor;
-            factor *= (shape[d]-1);
+            factor *= (shape[d]);
         }
         return index;
     }
@@ -94,12 +94,12 @@ namespace alg
         t_dimvec coords(get_ndims());
         auto shape = get_shape();
         auto factor = 1;
-        for (long long d = shape.size(); d>= 0; d--) {
-            factor *= (shape[d]-1);
+        for (long long d = shape.size() - 1; d>= 0; d--) {
+            factor *= (shape[d]);
         }
 
         for (long long d = 0; d < shape.size(); d++) {
-            factor = factor/shape[d]-1;
+            factor = factor/shape[d];
             coords[d]  = index/factor;
             index = index%factor;
 
@@ -172,24 +172,31 @@ namespace alg
     // Display
     void MultidimMatrix::display() {
         std::cout << "DISPLAY MATRIX" << std::endl;
-        // Factor list
+        // Counters
         t_dimvec shape = get_shape();
-        t_dimvec factors;
-        t_dim tmp_f=1;
-        for (auto d = shape.size(); d>= 0; d--) {
-            tmp_f *= (shape[d]-1);
-            factors.push_back(tmp_f);
-        }
+        std::vector<long long> counters(shape.size(), -1);
 
         for (t_dim i = 0; i < tensor.size(); i++)
         {
+            // Init Brackets
+            for (auto i=counters.size()-1; i>= 0; i--) {
+                if (counters[i] == -1) {
+                    std:: cout<< "[";
+                    counters[i] = 0;
+                }
+                if (i==0) {break;}
+            }
             // Print
             std::cout << tensor[i] << " ";
-            // Endline for each coord overflow
-            for (auto &f : factors) {
-                if (i % f == 0) {
-                    std:: cout << std::endl;
+            // End Brackets
+            counters[counters.size()-1]++;
+            for (auto i=counters.size()-1; i>= 0; i--) {
+                if (counters[i] == shape[i]) {
+                    counters[i]=-1;
+                    counters[i-1]++;
+                    std:: cout<< "]";
                 }
+                if (i==0) {break;}
             }
         }
     }
@@ -304,11 +311,13 @@ namespace alg
             for (t_dim j = 0; j < dim_n; j++) {
                 auto tmp = 0;
                 for (t_dim k = 0; k < dim_k; k++) {
-                    tmp += a.get_val({i,k}) * b.get_val({i,k});
+                    tmp += a.get_val({i,k}) * b.get_val({k,j});
                 }
                 res.set_val({i,j},tmp);
             }
         }
+
+
 
         // Return
         return res;
@@ -319,28 +328,46 @@ namespace alg
 
 int main() {
     std::cout << "TEST" << std::endl;
-    std::vector<std::vector<int>> test {
-        { 1, 2, 3, 4 },
-        { 5, 6 },
-        { 7, 8, 9 }
+    alg::t_mat3d test {
+        {
+            { 1, 2, 3, 4 },
+            { 5, 6, 2, 4},
+            { 7, 8, 9, 3 }
+        },
+        {
+            { 3, 2, 1, 4 },
+            { 8, 8, 8, 8},
+            { 9, 8, 9, 9 }
+        },
     };
-    std::cout << test[2][1] << std::endl;
+
     alg::t_mat2d a = {
         {3,2},
         {2,5},
         {7,10}
     };
-    alg::t_mat2d b = alg::t_mat2d{ alg::t_mat1d{4,11}, alg::t_mat1d{6,9}};
+    alg::t_mat2d b = {
+        {4,11},
+        {6,9}
+    };
+
+
     alg::MultidimMatrix A = alg::MultidimMatrix::FromMat2D(a);
     alg::MultidimMatrix B = alg::MultidimMatrix::FromMat2D(b);
+    alg::MultidimMatrix TEST = alg::MultidimMatrix::FromMat3D(test);
     std::cout << "INIT DETAILS" << std::endl;
     std::cout << "A " << A.get_shape()[0]  << " " << A.get_shape()[1] << std::endl ; 
     std::cout << "B " << B.get_shape()[0]  << " " << B.get_shape()[1] << std::endl ; 
-    std::cout << "MAT PRODUCT" << std::endl;
 
+
+    std::cout << "MAT PRODUCT" << std::endl;
     auto C = alg::mat_prod(A,B);
+
+
+
     std::cout << "MAT DISPLAY" << std::endl;
     C.display();
     std::cout << "END" << std::endl;
+    TEST.display();
     return 0;
 }
