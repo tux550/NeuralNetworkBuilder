@@ -26,8 +26,8 @@ namespace alg
             // Matrix
             t_container tensor;
             t_dimvec    dimensions;
-            t_dimvec index_to_coords(t_dim &index);
         public:
+            t_dimvec index_to_coords(t_dim index);
             t_dim  get_index(t_dimvec dims);
             // CONSTRUCTOR
             MultidimMatrix(t_dimvec _dimvec);

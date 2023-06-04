@@ -104,7 +104,7 @@ int main() {
     std::cout << "END PREDICT" << std::endl;
     p.display();
     std::cout << "TRAIN" << endl;
-    nw.fit(x_train,y_train,5000,0.01, 1);
+    nw.fit(x_train,y_train,5,0.1, 5);
     std::cout << "FINAL WEIGHTS OF L0" << endl;
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> 
     get_weights().display();

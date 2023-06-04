@@ -1,3 +1,4 @@
+#include <iostream>
 #include "./actlayer.h"
 
 namespace ai{
@@ -15,6 +16,9 @@ namespace ai{
 
     // Backward Propagation
     alg::MultidimMatrix ActLayer::backward_propagation(alg::MultidimMatrix &out_error, alg::t_type alpha) {
-        return input_data.apply(drv_func) * out_error; // df(input) @ output_error
+        auto err = input_data.apply(drv_func) * out_error;
+        std::cout << "ACT ERROR" << std::endl;
+        err.display();
+        return err; // df(input) @ output_error
     }
 }

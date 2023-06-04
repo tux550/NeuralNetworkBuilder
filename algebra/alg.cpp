@@ -90,7 +90,7 @@ namespace alg
         return index;
     }
 
-    t_dimvec MultidimMatrix::index_to_coords(t_dim &index) {
+    t_dimvec MultidimMatrix::index_to_coords(t_dim index) {
         t_dimvec coords(get_ndims());
         auto shape = get_shape();
         auto factor = 1;
@@ -171,7 +171,11 @@ namespace alg
     }
     // Display
     void MultidimMatrix::display() {
-        std::cout << "DISPLAY MATRIX" << std::endl;
+        for (t_dim i = 0; i < tensor.size(); i++) {
+            std::cout << tensor[i] << " ";
+        }
+        std::cout << std::endl;
+        /*
         // Counters
         t_dimvec shape = get_shape();
         std::vector<long long> counters(shape.size(), -1);
@@ -199,6 +203,7 @@ namespace alg
                 if (i==0) {break;}
             }
         }
+        */
     }
 
     MultidimMatrix MultidimMatrix::operator*(const t_type& x) {
@@ -356,14 +361,22 @@ int main() {
     alg::MultidimMatrix A = alg::MultidimMatrix::FromMat2D(a);
     alg::MultidimMatrix B = alg::MultidimMatrix::FromMat2D(b);
     alg::MultidimMatrix TEST = alg::MultidimMatrix::FromMat3D(test);
-    std::cout << "INIT DETAILS" << std::endl;
-    std::cout << "A " << A.get_shape()[0]  << " " << A.get_shape()[1] << std::endl ; 
-    std::cout << "B " << B.get_shape()[0]  << " " << B.get_shape()[1] << std::endl ; 
+    std::cout << "TEST INDEX TO COORDS" << std::endl;
+    alg::t_dim x=13;
+    auto t = TEST.index_to_coords(x) ;
+    for (auto &e :t) {
+        std::cout << e << " . "; 
+    }
+    std::cout << std::endl;
+
 
 
     std::cout << "MAT PRODUCT" << std::endl;
     auto C = alg::mat_prod(A,B);
 
+
+    std::cout << "MAT TRANSPOSE" << std::endl;
+    auto Ap = A.transpose();
 
 
     std::cout << "MAT DISPLAY" << std::endl;
@@ -373,3 +386,4 @@ int main() {
     return 0;
 }
 */
+

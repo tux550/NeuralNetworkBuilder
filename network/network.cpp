@@ -33,17 +33,17 @@ namespace ai
             alg::t_type error_total = 0;
             for (t_count j = 0; j < x_train.size(); j++) {
                 // Forward Propagation
-                std::cout << "FORWARD PROPAGATION" << std::endl;
+                //std::cout << "FORWARD PROPAGATION" << std::endl;
                 auto res = predict(x_train[j]);
                 // Error
-                std::cout << "ERROR" << std::endl;
+                //std::cout << "ERROR" << std::endl;
                 error_total += loss(y_train[j], res).sum();
                 // Backward Propagation
                 std::cout << "LOSS DRV" << std::endl;
                 //res.display();
                 auto error = loss_drv(y_train[j], res);
-                //error.display();
-                std::cout << "BACKWARD PROPAGATION" << std::endl;
+                error.display();
+                //std::cout << "BACKWARD PROPAGATION" << std::endl;
                 for (int k = layers.size()-1; k>= 0; k--){
                     //std::cout << "LAYER:" << k  << std::endl;
                     error = layers[k]->backward_propagation(error, alpha);

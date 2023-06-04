@@ -41,6 +41,18 @@ namespace ai{
         auto input_data_t = input_data.transpose();
         auto we_error = alg::mat_prod(input_data_t, out_error);
 
+        std::cout << "OUT_ERROR" << std::endl;
+        out_error.display();
+        std::cout << "wt" << std::endl;
+        wt.display();
+        std::cout << "in_error" << std::endl;
+        in_error.display();
+        std::cout << "input_data_t" << std::endl;
+        input_data_t.display();
+        std::cout << "we_error" << std::endl;
+        we_error.display();
+        throw;
+
         // Update
         weights_mat = weights_mat - (we_error * alpha);
         bias        = bias - (out_error * alpha);
