@@ -1,5 +1,3 @@
-
-#include <iostream>
 #include "./network.h"
 
 namespace ai
@@ -26,7 +24,7 @@ namespace ai
         return res;
     }
     // Fit
-    void Network::fit(vec_mat &x_train, vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr) {
+    void Network::fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr) {
         // Epochs
         for (t_count i = 0; i < epochs; i++)
         {

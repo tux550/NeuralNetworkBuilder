@@ -2,13 +2,12 @@
 #include <vector>
 #include <memory>
 #include <iostream>
-#include <fstream> 
 #include <string>
-#include <sstream>
+#include "load/load.h"
 #include "algebra/alg.h"
-#include "layers/actlayer.h"
-#include "layers/fclayer.h"
-#include "network/network.h"
+#include "ia/layers/actlayer.h"
+#include "ia/layers/fclayer.h"
+#include "ia/network/network.h"
 #include "funcs/functions.h"
 
 
@@ -29,14 +28,14 @@ int get_maximum_index(alg::Matrix& y_pred) {
 
 int main() {
     /*
-    ai::vec_mat x_train = { 
+    alg::::vec_mat x_train = { 
         alg::Matrix( alg::t_mat{ {1,1}} ),
         alg::Matrix( alg::t_mat{ {0,0}} ),
         alg::Matrix( alg::t_mat{ {0,1}} ),
         alg::Matrix( alg::t_mat{ {1,0}} ),
     };
 
-    ai::vec_mat y_train = {
+    alg::::vec_mat y_train = {
         alg::Matrix( alg::t_mat{ {0}} ),
         alg::Matrix( alg::t_mat{ {0}} ),
         alg::Matrix( alg::t_mat{ {1}} ),
@@ -63,6 +62,10 @@ int main() {
     nw.add_layer(fc3);
     nw.add_layer(act3);
 
+
+    auto x_train = load_file("datasets/x.csv");
+    auto y_train = load_file("datasets/y.csv");
+    /*
     ifstream XFile("datasets/x.csv");
     ifstream YFile("datasets/y.csv");
 
@@ -70,36 +73,33 @@ int main() {
     string num;
     char delim = ' '; 
 
-    ai::vec_mat x_train{};
+    alg::vec_mat x_train{};
     while (std::getline(XFile, line)) {
         std::stringstream ss(line);
-        alg::t_mat tmp_mat{};
         alg::t_row tmp_row{};
         while (std::getline(ss, num, delim)) {
             tmp_row.push_back( std::stod(num) );
         }
-        tmp_mat.push_back(tmp_row);
-        x_train.push_back(alg::Matrix{tmp_mat});
+        x_train.push_back(alg::Matrix{{tmp_row}});
     }
 
-    ai::vec_mat y_train{};
+    alg::vec_mat y_train{};
     while (std::getline(YFile, line)) {
         std::stringstream ss(line);
-        alg::t_mat tmp_mat{};
         alg::t_row tmp_row{};
         while (std::getline(ss, num, delim)) {
             tmp_row.push_back( std::stod(num) );
         }
-        tmp_mat.push_back(tmp_row);
-        y_train.push_back(alg::Matrix{tmp_mat});
+        y_train.push_back(alg::Matrix{{tmp_row}});
     }
+    */
 
 
     std::cout << "INIT WEIGHTS OF L0" << endl;
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> get_weights().display();
     nw.predict( x_train[0] ).display();
     std::cout << "TRAIN" << endl;
-    nw.fit(x_train,y_train,5000,0.01);
+    nw.fit(x_train,y_train,1000,0.01);
     std::cout << "FINAL WEIGHTS OF L0" << endl;
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> 
     get_weights().display();

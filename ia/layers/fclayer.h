@@ -2,7 +2,8 @@
 #define H_FCLAYER
 
 #include <random>
-#include "../algebra/alg.h"
+#include <iostream>
+#include "../../algebra/alg.h"
 #include"./layer.h"
 
 namespace ai{

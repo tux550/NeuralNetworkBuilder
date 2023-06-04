@@ -1,7 +1,7 @@
 #ifndef H_LAYER
 #define H_LAYER
 
-#include "../algebra/alg.h"
+#include "../../algebra/alg.h"
 
 namespace ai
 {

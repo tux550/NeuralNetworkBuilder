@@ -2,14 +2,14 @@
 #define H_NETWORK
 
 #include <memory>
-#include "../algebra/alg.h"
+#include <iostream>
+#include "../../algebra/alg.h"
 #include "../layers/layer.h"
 
 namespace ai
 {
     using ptr_layer  = std::shared_ptr<ai::BaseLayer>;
     using vec_layers = std::vector<ptr_layer>;
-    using vec_mat    = std::vector<alg::Matrix>;
     using t_count    = int;
 
     class Network
@@ -29,7 +29,7 @@ namespace ai
             // Predict
             alg::Matrix predict(alg::Matrix &inp);
             // Fit
-            void fit(vec_mat &x_train, vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr = 100);
+            void fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr = 100);
     };
 
 }

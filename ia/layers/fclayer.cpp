@@ -1,5 +1,3 @@
-#include <random>
-#include <iostream>
 #include "./fclayer.h"
 
 namespace ai{

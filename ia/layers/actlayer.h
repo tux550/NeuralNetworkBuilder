@@ -2,7 +2,7 @@
 #define H_ACTLAYER
 
 #include <functional>
-#include "../algebra/alg.h"
+#include "../../algebra/alg.h"
 #include"./layer.h"
 
 namespace ai{

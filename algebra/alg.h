@@ -57,6 +57,7 @@ namespace alg
 
     // Define extra types
     using t_mm2m  = std::function<Matrix(Matrix&,Matrix&)>;
+    using vec_mat = std::vector<alg::Matrix>;
 }
 
 #endif
