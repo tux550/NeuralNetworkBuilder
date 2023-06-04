@@ -3,7 +3,7 @@
 
 namespace alg
 {
-    MultidimMatrix::MultidimMatrix(t_dimvec &_dimvec):
+    MultidimMatrix::MultidimMatrix(t_dimvec _dimvec):
         tensor{},
         dimensions{ _dimvec }
         {
@@ -23,7 +23,7 @@ namespace alg
             tensor = t_container(total_size);
         }
 
-    MultidimMatrix::MultidimMatrix(t_dimvec &_dimvec, t_container &_tensor):
+    MultidimMatrix::MultidimMatrix(t_dimvec _dimvec, t_container &_tensor):
         tensor{ _tensor },
         dimensions{ _dimvec }
         {}
@@ -326,6 +326,7 @@ namespace alg
 }
 
 
+/*
 int main() {
     std::cout << "TEST" << std::endl;
     alg::t_mat3d test {
@@ -371,3 +372,4 @@ int main() {
     TEST.display();
     return 0;
 }
+*/

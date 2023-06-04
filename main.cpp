@@ -16,9 +16,9 @@ using namespace std;
 
 int get_maximum_index(alg::MultidimMatrix& y_pred) {
     int res = 0;
-    auto val = y_pred.get_val(0,0);
-    for (int i=1; i<y_pred.get_cols(); i++) {
-        auto new_val = y_pred.get_val(0,i);
+    auto val = y_pred.get_val({0,0});
+    for (alg::t_dim i=1; i<y_pred.get_shape()[1]; i++) {
+        auto new_val = y_pred.get_val({0,i});
         if (new_val > val) {
             res = i;
             val = new_val;
@@ -73,33 +73,38 @@ int main() {
     ai::vec_mat x_train{};
     while (std::getline(XFile, line)) {
         std::stringstream ss(line);
-        alg::t_containerp_mat{};
-        alg::t_container tmp_row{};
+        alg::t_mat2d tmp_mat{};
+        alg::t_mat1d tmp_row{};
         while (std::getline(ss, num, delim)) {
             tmp_row.push_back( std::stod(num) );
         }
         tmp_mat.push_back(tmp_row);
-        x_train.push_back(alg::MultidimMatrix{tmp_mat});
+        x_train.push_back(alg::MultidimMatrix::FromMat2D(tmp_mat));
     }
 
     ai::vec_mat y_train{};
     while (std::getline(YFile, line)) {
         std::stringstream ss(line);
-        alg::t_containerp_mat{};
-        alg::t_container tmp_row{};
+        alg::t_mat2d tmp_mat{};
+        alg::t_mat1d tmp_row{};
         while (std::getline(ss, num, delim)) {
             tmp_row.push_back( std::stod(num) );
         }
         tmp_mat.push_back(tmp_row);
-        y_train.push_back(alg::MultidimMatrix{tmp_mat});
+        y_train.push_back(alg::MultidimMatrix::FromMat2D(tmp_mat));
     }
 
 
     std::cout << "INIT WEIGHTS OF L0" << endl;
-    std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> get_weights().display();
-    nw.predict( x_train[0] ).display();
+    auto w0 = std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> get_weights();
+    std::cout << "DISPLAY WEIGHTS OF L0" << endl;
+    w0.display();
+    std::cout << "PREDICT" << std::endl;
+    auto p = nw.predict( x_train[0] );
+    std::cout << "END PREDICT" << std::endl;
+    p.display();
     std::cout << "TRAIN" << endl;
-    nw.fit(x_train,y_train,5000,0.01);
+    nw.fit(x_train,y_train,5000,0.01, 1);
     std::cout << "FINAL WEIGHTS OF L0" << endl;
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> 
     get_weights().display();

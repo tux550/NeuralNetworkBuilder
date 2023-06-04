@@ -30,8 +30,8 @@ namespace alg
         public:
             t_dim  get_index(t_dimvec dims);
             // CONSTRUCTOR
-            MultidimMatrix(t_dimvec &_dimvec);
-            MultidimMatrix(t_dimvec &_dimvec, t_container &_tensor);
+            MultidimMatrix(t_dimvec _dimvec);
+            MultidimMatrix(t_dimvec _dimvec, t_container &_tensor);
             static MultidimMatrix FromMat1D(t_mat1d &_mat_1d);
             static MultidimMatrix FromMat2D(t_mat2d &_mat_2d);
             static MultidimMatrix FromMat3D(t_mat3d &_mat_3d);

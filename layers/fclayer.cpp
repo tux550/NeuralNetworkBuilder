@@ -6,8 +6,8 @@ namespace ai{
     // Constructor
     FCLayer::FCLayer(alg::t_dim inp_size, alg::t_dim out_size):
         BaseLayer{inp_size,out_size},
-        weights_mat{inp_size, out_size},
-        bias{1, out_size}
+        weights_mat{ {inp_size, out_size} },
+        bias{ {1, out_size} }
         {
             // Generate random number generator
             alg::t_type lower_bound = 0;
@@ -15,16 +15,16 @@ namespace ai{
             std::uniform_real_distribution<alg::t_type> unif(lower_bound, upper_bound);
             std::default_random_engine re;
             // Generate random weights
-            for (auto r=0; r<inp_size; r++) {
-                for (auto c=0; c<out_size; c++) {
+            for (alg::t_dim r=0; r<inp_size; r++) {
+                for (alg::t_dim c=0; c<out_size; c++) {
                     auto val = unif(re);
-                    weights_mat.set_val(r,c,val);
+                    weights_mat.set_val({r,c},val);
                 }
             }
             // Generate random bias
-            for (auto c=0; c<out_size; c++) {
+            for (alg::t_dim c=0; c<out_size; c++) {
                 auto val = unif(re);
-                bias.set_val(0,c,val);
+                bias.set_val({0,c},val);
             }
         }
     // Forward Propagation
