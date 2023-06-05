@@ -10,6 +10,10 @@ namespace alg
     Matrix::Matrix(t_mat _tensor):
         tensor{_tensor}
         {}
+
+    Matrix::Matrix():
+        tensor{}
+        {}
             
     // DESTRUCTOR
     Matrix::~Matrix() = default;

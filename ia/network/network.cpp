@@ -24,52 +24,54 @@ namespace ai
         return res;
     }
     // Fit
-    void Network::fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr) {
+    void Network::fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count batch_size, t_count epoch_intr) {
+        // Batch size
+        if (batch_size > x_train.size()) {
+            batch_size = x_train.size();
+        }
+        // Batch selection
+        alg::vec_mat x_batch(batch_size);
+        alg::vec_mat y_batch(batch_size);
+        std::vector<std::size_t> batch_indexes(x_train.size());
+        std::iota (std::begin(batch_indexes), std::end(batch_indexes), 0);
+
+        // Random
+        std::random_device rd;
+        std::mt19937 gen(rd());
+
         // Epochs
         for (t_count i = 0; i < epochs; i++)
         {
+            // Create batch
+            std::shuffle(batch_indexes.begin(), batch_indexes.end(), gen);
+            for (auto b=0; b<batch_size; b++) {
+                x_batch[b] = x_train[batch_indexes[b]];
+                y_batch[b] =  y_train[batch_indexes[b]];
+            }
+
             alg::t_type error_total = 0;
             // Forward Propagation
-            auto res = predict(x_train);
+            auto res = predict(x_batch);
             // Error
             alg::vec_mat error_vec;
-            for (t_count j = 0; j < y_train.size(); j++) {
-                error_total += loss(y_train[j], res[j]).sum();
-                auto error = loss_drv(y_train[j], res[j]);
+            for (t_count j = 0; j < batch_size; j++) {
+                error_total += loss(y_batch[j], res[j]).sum();
+                auto error = loss_drv(y_batch[j], res[j]);
                 error_vec.push_back(error);
             }
+
 
             // Backward Propagation
             for (int k = layers.size()-1; k>= 0; k--){
                 //std::cout << "LAYER:" << k  << std::endl;
                 error_vec = layers[k]->backward_propagation(error_vec, alpha);
             } 
-            /*
-            for (t_count j = 0; j < x_train.size(); j++) {
-                // Forward Propagation
-                //std::cout << "FORWARD PROPAGATION" << std::endl;
-                auto res = predict(x_train[j]);
-                // Error
-                //std::cout << "ERROR" << std::endl;
-                error_total += loss(y_train[j], res).sum();
-                // Backward Propagation
-                //std::cout << "LOSS DRV" << std::endl;
-                //res.display();
-                auto error = loss_drv(y_train[j], res);
-                //error.display();
-                //std::cout << "BACKWARD PROPAGATION" << std::endl;
-                for (int k = layers.size()-1; k>= 0; k--){
-                    //std::cout << "LAYER:" << k  << std::endl;
-                    error = layers[k]->backward_propagation(error, alpha);
-                } 
-            }
-            */
             if (i%epoch_intr == 0) {
                 std::cout << "Epoch: " << i << std::endl;
                 std::cout << "Error: " << error_total << std::endl;
             }
+
         }
-        
     }
     /*
     def fit(self, x_train, y_train, epochs, learning_rate):

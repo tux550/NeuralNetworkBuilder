@@ -8,7 +8,7 @@ namespace ai{
         bias{1, out_size}
         {
             // Generate random number generator
-            alg::t_type lower_bound = 0;
+            alg::t_type lower_bound = -1;
             alg::t_type upper_bound = 1;
             std::uniform_real_distribution<alg::t_type> unif(lower_bound, upper_bound);
             std::default_random_engine re;

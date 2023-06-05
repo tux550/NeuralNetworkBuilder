@@ -25,6 +25,7 @@ namespace alg
             // CONSTRUCTOR
             Matrix(t_dim _rows, t_dim _cols);
             Matrix(t_mat _tensor);
+            Matrix();
             // DESTRUCTOR
             ~Matrix();
             // Getters

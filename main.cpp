@@ -45,11 +45,11 @@ int main() {
 
 
     cout << "Init Layers" << endl;
-    ai::ptr_layer fc1  = std::make_shared<ai::FCLayer>(4.0,8.0);
+    ai::ptr_layer fc1  = std::make_shared<ai::FCLayer>(4.0,20.0);
     ai::ptr_layer act1 = std::make_shared<ai::ActLayer>(8.0, hypertan, hypertan_drv); //relu, relu_drv);
-    ai::ptr_layer fc2  = std::make_shared<ai::FCLayer>(8.0,5.0);
+    ai::ptr_layer fc2  = std::make_shared<ai::FCLayer>(20.0,20.0);
     ai::ptr_layer act2 = std::make_shared<ai::ActLayer>(5.0, hypertan, hypertan_drv); // relu, relu_drv);
-    ai::ptr_layer fc3  = std::make_shared<ai::FCLayer>(5.0,3.0);
+    ai::ptr_layer fc3  = std::make_shared<ai::FCLayer>(20.0,3.0);
     ai::ptr_layer act3 = std::make_shared<ai::ActLayer>(3.0, hypertan, hypertan_drv); // relu, relu_drv);
     cout << "End Layers" << endl;
 
@@ -99,7 +99,7 @@ int main() {
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> get_weights().display();
     //nw.predict( x_train[0] ).display();
     std::cout << "TRAIN" << endl;
-    nw.fit(x_train,y_train,1000,0.01);
+    nw.fit(x_train,y_train,10000,0.01);
     std::cout << "FINAL WEIGHTS OF L0" << endl;
     std::dynamic_pointer_cast<ai::FCLayer> (fc1) -> 
     get_weights().display();
@@ -108,6 +108,7 @@ int main() {
     vector<double> misses(3);
     vector<double> total(3);
     auto res = nw.predict(x_train);
+    
     for (int ind = 0; ind < res.size(); ind ++) {
         auto real = get_maximum_index( y_train[ind] );
         if ( real != get_maximum_index( res[ind] ) ) {
@@ -119,6 +120,7 @@ int main() {
     for (int i=0; i<3; i++) {
         cout << misses[i] / total[i] <<  std::endl;
     } 
+    
 
     /*
     vector<double> misses(3);
