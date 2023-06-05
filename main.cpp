@@ -10,6 +10,7 @@
 #include "ia/layers/fclayer.h"
 #include "ia/network/network.h"
 #include "funcs/functions.h"
+#include "logger/logger.h"
 
 
 using namespace std;
@@ -47,23 +48,33 @@ ai::Network nw_from_inputs( ) {
     return ai::Network::FullMLP(layers_vector,act_func, act_drv, loss_func, loss_drv);;
 }
 
-int main() {
-    std::cout << "Create Network" << std::endl;
-    auto nw = nw_from_inputs();
-    //auto nw = ai::Network::FullMLP({4,20,20,3},hypertan, hypertan_drv,mse, mse_drv);
+void train_from_inputs(ai::Network& nw, alg::vec_mat& x_train, alg::vec_mat& y_train) {
+    // Init
+    ai::t_count epochs, batch_size;
+    alg::t_type alpha; 
+    // Get data
+    std::cin >> epochs >> alpha >> batch_size;
+    // Train
+    nw.fit(x_train,y_train,epochs, alpha, batch_size);
+}
 
-    std::cout << "Load Dataset" << std::endl;
+
+int main() {
+    debug_print("Create Network");
+    auto nw = nw_from_inputs(); //auto nw = ai::Network::FullMLP({4,20,20,3},hypertan, hypertan_drv,mse, mse_drv);
+
+    debug_print("Load Dataset");
     auto x_train = load_file("datasets/x.csv");
     auto y_train = load_file("datasets/y.csv");
 
-    std::cout << "Train" << endl;
-    nw.fit(x_train,y_train,10000,0.01);
+    debug_print("Train");
+    train_from_inputs(nw, x_train, y_train); // nw.fit(x_train,y_train,10000,0.01);
     
-    std::cout << "Result" << endl;
+    debug_print("Result");
     auto res = nw.predict(x_train);
 
 
-    std::cout << "Stadistics" << endl;
+    debug_print("Stadistics");
     vector<double> misses(3);
     vector<double> total(3);
     
