@@ -92,4 +92,9 @@ namespace ai
 
         }
     }
+    // Export
+    void Network::export_model(std::string out_filename) {
+        // TODO
+        return;
+    }
 }

@@ -7,6 +7,7 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <string>
 #include "../../algebra/alg.h"
 #include "../layers/layer.h"
 
@@ -35,6 +36,8 @@ namespace ai
             alg::vec_mat predict(alg::vec_mat &inp);
             // Fit
             void fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count batch_size=4, t_count epoch_intr = 1000);
+            // Export
+            void export_model(std::string out_filename);
     };
 
 }
