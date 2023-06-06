@@ -97,4 +97,11 @@ namespace ai
         // TODO
         return;
     }
+
+    std::ostream& operator<<(std::ostream& os, const Network& nw) {
+        for (auto &l: nw.layers) {
+            os << (*l) << std::endl;
+        }
+        return os;
+    }
 }

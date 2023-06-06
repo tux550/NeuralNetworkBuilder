@@ -1,6 +1,7 @@
 #ifndef H_LAYER
 #define H_LAYER
 
+#include <iostream>
 #include "../../algebra/alg.h"
 
 namespace ai
@@ -19,8 +20,12 @@ namespace ai
         alg::vec_mat backward_propagation(alg::vec_mat &vec_out_error, alg::t_type alpha);
         // Update base on one result
         virtual alg::Matrix forward_propagation_implementation(alg::Matrix &im) = 0;
-        virtual alg::Matrix backward_propagation_implementation(alg::Matrix &data, alg::Matrix &out_error, alg::t_type alpha) = 0;     
+        virtual alg::Matrix backward_propagation_implementation(alg::Matrix &data, alg::Matrix &out_error, alg::t_type alpha) = 0;  
+        // Write
+        virtual void write(std::ostream& os) const = 0;
     };
+
+    std::ostream& operator<<(std::ostream& os, const BaseLayer& layer);
 }
 
 

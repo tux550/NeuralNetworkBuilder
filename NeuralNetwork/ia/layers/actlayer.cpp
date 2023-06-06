@@ -17,4 +17,9 @@ namespace ai{
     alg::Matrix ActLayer::backward_propagation_implementation(alg::Matrix &data, alg::Matrix &out_error, alg::t_type alpha) {
         return data.apply(drv_func) * out_error; // df(input) @ output_error
     }
+
+    // Write
+    void ActLayer::write(std::ostream& os) const {
+        os << "ActLayer" << std::endl;
+    }
 }

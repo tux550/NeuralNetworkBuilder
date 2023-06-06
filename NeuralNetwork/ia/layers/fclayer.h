@@ -18,6 +18,8 @@ namespace ai{
         alg::Matrix backward_propagation_implementation(alg::Matrix &data, alg::Matrix &out_error, alg::t_type alpha);
         void set_weights(alg::Matrix &w);
         alg::Matrix get_weights();
+        // Write
+        void write(std::ostream& os) const;
     };
 }
 

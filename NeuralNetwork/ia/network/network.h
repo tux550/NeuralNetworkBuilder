@@ -38,8 +38,9 @@ namespace ai
             void fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count batch_size=4, t_count epoch_intr = 1000);
             // Export
             void export_model(std::string out_filename);
+            // Friend functions
+            friend std::ostream& operator<<(std::ostream& os, const Network& nw);
     };
-
 }
 
 

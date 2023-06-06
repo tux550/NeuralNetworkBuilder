@@ -83,6 +83,9 @@ int main() {
     for (auto &m : res){
         std::cout << m;
     }
+
+    debug_print("nw");
+    std::cout << nw;
     /*
     debug_print("Stadistics");
     vector<double> misses(3);

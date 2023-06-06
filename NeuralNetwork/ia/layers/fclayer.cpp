@@ -52,4 +52,8 @@ namespace ai{
     alg::Matrix FCLayer::get_weights() {
         return weights_mat;
     }
+    // Write
+    void FCLayer::write(std::ostream& os) const {
+        os << "FCLayer" << std::endl << weights_mat << bias;
+    }
 }

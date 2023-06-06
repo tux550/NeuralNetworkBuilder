@@ -34,6 +34,11 @@ namespace ai{
         // Return
         return vec_res;
     }
+
+    std::ostream& operator<<(std::ostream& os, const BaseLayer& layer) {
+        (&layer)->write(os); // Overload
+        return os;
+    }
 }
 
 
