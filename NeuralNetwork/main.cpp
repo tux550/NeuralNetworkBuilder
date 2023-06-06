@@ -81,7 +81,7 @@ int main() {
 
     debug_print("Output");
     for (auto &m : res){
-        m.display();
+        std::cout << m;
     }
     /*
     debug_print("Stadistics");

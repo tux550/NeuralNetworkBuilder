@@ -31,7 +31,7 @@ namespace alg
             // Getters
             t_dim get_rows() const;
             t_dim get_cols() const;
-            t_type get_val(t_dim r, t_dim c);
+            t_type get_val(t_dim r, t_dim c) const;
             // Setters
             void set_val(t_dim r, t_dim c, t_type val);
             // Transpose
@@ -40,10 +40,7 @@ namespace alg
             Matrix apply(t_t2t func);
             // Sum
             t_type sum();
-            // Display
-            void display();
-
-
+            
             Matrix operator*(const t_type&);
             Matrix operator+(const t_type&);
             Matrix operator*(const Matrix&);
@@ -52,6 +49,7 @@ namespace alg
 
             // Friend functions
             friend Matrix mat_prod (Matrix &a,Matrix &b);
+            friend std::ostream& operator<<(std::ostream& os, const Matrix& m);
     };
 
     Matrix mat_prod(Matrix &a, Matrix &b);    

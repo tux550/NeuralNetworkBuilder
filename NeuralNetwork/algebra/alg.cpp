@@ -29,7 +29,7 @@ namespace alg
         return this->tensor[0].size();
     }
 
-    t_type Matrix::get_val(t_dim r, t_dim c) {
+    t_type Matrix::get_val(t_dim r, t_dim c) const {
         return tensor[r][c];
     }
 
@@ -92,15 +92,6 @@ namespace alg
             }
         }
         return res;
-    }
-    // Display
-    void Matrix::display() {
-        for (t_dim r=0; r<get_rows(); r++) {
-            for (t_dim c=0; c<get_cols(); c++) {
-                std::cout << get_val(r,c) << " ";
-            }
-            std::cout << std::endl;
-        }
     }
 
     Matrix Matrix::operator*(const t_type& x) {
@@ -249,6 +240,17 @@ namespace alg
 
         // Return
         return res;
+    }
+
+    // Display
+    std::ostream& operator<<(std::ostream& os, const Matrix& m){
+        for (t_dim r=0; r<m.get_rows(); r++) {
+            for (t_dim c=0; c<m.get_cols(); c++) {
+                os << m.get_val(r,c) << " ";
+            }
+            os << std::endl;
+        }
+        return os;
     }
 
 }
