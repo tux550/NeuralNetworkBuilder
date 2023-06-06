@@ -1,2 +1,3 @@
 4 3 2 40 hypertan mse
+../Dataset/x.csv ../Dataset/y.csv
 10000 0.01 4
