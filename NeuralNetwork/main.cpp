@@ -51,7 +51,6 @@ ai::Network nw_from_inputs( ) {
 alg::vec_mat dataset_from_inputs() {
     std::string filename;
     std::cin  >> filename;
-    std::cout << "filename:" << filename << std::endl;
     return load_file(filename);
 }
 
