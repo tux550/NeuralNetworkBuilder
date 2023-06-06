@@ -1,7 +1,7 @@
 
 import subprocess
 import numpy as np
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import precision_score, recall_score, f1_score, balanced_accuracy_score, confusion_matrix
 
 def numpy_from_file(filename):
     return np.genfromtxt(filename, delimiter=' ')
@@ -48,7 +48,14 @@ def metrics(parameters_dict):
     print("CONFUSION MATRIX")
     print(cm)
 
+    metrics = {
+        "Balanced Accuracy" : balanced_accuracy_score(y_true, y_pred),
+        "Precision" : precision_score(y_true, y_pred, average=None),
+        "Recall" : recall_score(y_true, y_pred, average=None),
+        "F1 Score" : f1_score(y_true, y_pred, average=None),
+    }
 
+    print(metrics)
 
 
 
