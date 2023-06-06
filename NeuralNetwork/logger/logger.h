@@ -2,7 +2,7 @@
 #include <string>
 
 /*CONFIG*/
-#define VERBOSE
+//#define VERBOSE
 //#define INFO
 //#define DEBUG
 

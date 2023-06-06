@@ -79,7 +79,11 @@ int main() {
     debug_print("Result");
     auto res = nw.predict(x_train);
 
-
+    debug_print("Output");
+    for (auto &m : res){
+        m.display();
+    }
+    /*
     debug_print("Stadistics");
     vector<double> misses(3);
     vector<double> total(3);
@@ -95,7 +99,7 @@ int main() {
     for (int i=0; i<3; i++) {
         cout << misses[i] / total[i] <<  std::endl;
     } 
-    
+    */
 
 }
 
