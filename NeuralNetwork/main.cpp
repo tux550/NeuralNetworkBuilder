@@ -71,8 +71,8 @@ int main() {
     auto nw = nw_from_inputs(); //auto nw = ai::Network::FullMLP({4,20,20,3},hypertan, hypertan_drv,mse, mse_drv);
 
     debug_print("Load Dataset");
-    auto x_train = dataset_from_inputs(); //load_file("Dataset/x.csv");
-    auto y_train = dataset_from_inputs(); //load_file("Dataset/y.csv");
+    auto x_train = dataset_from_inputs(); //load_file("../Dataset/x.csv");
+    auto y_train = dataset_from_inputs(); //load_file("../Dataset/y.csv");
 
     debug_print("Train");
     train_from_inputs(nw, x_train, y_train); // nw.fit(x_train,y_train,10000,0.01);
