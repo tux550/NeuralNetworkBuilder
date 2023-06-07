@@ -8,15 +8,15 @@ default_arch = {
     "output_size":24,
     "depth":6,
     "nodes":100,
-    "activation_function":"hypertan",
+    "activation_function":"relu",
     "loss_function":"mse",
 }
 default_train = {
     # TRAIN
     "filename_x_train":"dataset/x_train.csv",
     "filename_y_train":"dataset/y_train.csv",
-    "epochs":100_000,
-    "alpha":0.0001,
+    "epochs":100_000, #5_000,
+    "alpha":0.00001,
     "batch_size":1,
 }
 
@@ -40,8 +40,8 @@ iris_train = {
     # TRAIN
     "filename_x_train":"../Dataset/x.csv",
     "filename_y_train":"../Dataset/y.csv",
-    "epochs":10000,
-    "alpha":0.01,
+    "epochs":50_000,
+    "alpha":0.001,
     "batch_size":1,
 }
 
@@ -52,6 +52,6 @@ iris_test = {
 }
 
 
-#test_hyperparameter("alpha",[0.0001,],default_arch, default_train, default_test, "model_hp_{}.mdl", display_cm=True)
-test_hyperparameter("alpha",[0.01,],iris_arch, iris_train, iris_test, "model_hp_{}.mdl", display_cm=True)
+test_hyperparameter("batch_size",[1,],default_arch, default_train, default_test, "model_bs_{}.mdl", display_cm=True)
+#test_hyperparameter("batch_size",[1,],iris_arch, iris_train, iris_test, "model_iris_{}.mdl", display_cm=True)
 

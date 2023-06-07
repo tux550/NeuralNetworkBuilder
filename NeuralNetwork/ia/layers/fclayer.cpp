@@ -8,8 +8,8 @@ namespace ai{
         bias{1, out_size}
         {
             // Generate random number generator
-            alg::t_type lower_bound = -1;
-            alg::t_type upper_bound = 1;
+            alg::t_type lower_bound = -0.3;
+            alg::t_type upper_bound = 0.3;
             std::uniform_real_distribution<alg::t_type> unif(lower_bound, upper_bound);
             std::default_random_engine re;
             // Generate random weights
@@ -21,7 +21,7 @@ namespace ai{
             }
             // Generate random bias
             for (auto c=0; c<out_size; c++) {
-                auto val = unif(re);
+                auto val =0;//= unif(re);
                 bias.set_val(0,c,val);
             }
         }
