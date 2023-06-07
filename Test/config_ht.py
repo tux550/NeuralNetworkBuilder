@@ -3,7 +3,7 @@ default_arch_ht = {
     # ARCHITECTURE
     "input_size":32,
     "output_size":24,
-    "depth":1,
+    "depth":2,
     "nodes":20,
     "activation_function":"hypertan",
     "loss_function":"mse",
