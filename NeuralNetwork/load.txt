@@ -1,0 +1,7 @@
+0 1 0
+
+4 3 2 40 hypertan mse
+
+model.mdl
+
+../Dataset/x.csv
