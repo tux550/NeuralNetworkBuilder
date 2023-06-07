@@ -3,7 +3,7 @@ from sklearn.metrics import precision_score, recall_score, f1_score, balanced_ac
 from .run import run_train_test_save
 from .np import numpy_from_file
 
-def metrics(arch_dict, train_dict, test_dict, save_path):
+def get_metrics(arch_dict, train_dict, test_dict, save_path, display_cm=True):
     # Create parameters dictionary
     parameters_dict = arch_dict | train_dict | test_dict
     parameters_dict["filename_export_model"]=save_path
@@ -25,4 +25,4 @@ def metrics(arch_dict, train_dict, test_dict, save_path):
         "F1 Score" : f1_score(y_true, y_pred, average=None),
     }
 
-    print(metrics)
+    return metrics

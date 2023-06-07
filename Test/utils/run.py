@@ -36,7 +36,6 @@ def run_train_test_save(parameters_dict):
     parameters_dict["test"]=1
     parameters_dict["save"]=1
     # FORMAT
-    print(parameters_dict)
     parameters = " ".join([ str(parameters_dict[k]) for k in KEY_ORDER])
     cmd = CMD.format(parameters=parameters, exe_file=EXECUTABLE)
     # RUN

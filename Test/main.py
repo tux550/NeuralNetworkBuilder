@@ -1,5 +1,6 @@
 import numpy as np
-from utils.metrics import metrics
+from testing.test import test_hyperparameter
+
 
 default_arch = {
     # ARCHITECTURE
@@ -25,4 +26,5 @@ default_test = {
     "filename_y_test":"../Dataset/y.csv",
 }
 
-metrics(default_arch, default_train, default_test, "model_test.mdl")
+test_hyperparameter("alpha",[0.1,0.01,0.001],default_arch, default_train, default_test, "model_hp_{}.mdl")
+#get_metrics(default_arch, default_train, default_test, "model_test.mdl")
