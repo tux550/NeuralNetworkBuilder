@@ -1,4 +1,4 @@
-
+import os
 import subprocess
 import numpy as np
 from sklearn.metrics import precision_score, recall_score, f1_score, balanced_accuracy_score, confusion_matrix
@@ -41,7 +41,12 @@ def run_exe(parameters_dict):
     cmd = CMD.format(parameters=parameters, exe_file=EXECUTABLE)
     # RUN
     print("Running with parameters:", parameters)
-    y_pred =subprocess.getoutput(cmd)
+    if os.name == "nt":
+        # Windows
+        y_pred =subprocess.getoutput(['powershell',cmd])
+    else:
+        # Linux
+        y_pred =subprocess.getoutput(cmd)
     y_pred =numpy_from_str(y_pred)
     return y_pred
 
