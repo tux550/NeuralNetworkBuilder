@@ -20,6 +20,7 @@ namespace ai{
         alg::Matrix get_weights();
         // Write
         void write(std::ostream& os) const;
+        void read(std::istream& is);
     };
 }
 

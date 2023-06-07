@@ -21,11 +21,13 @@ namespace ai
         // Update base on one result
         virtual alg::Matrix forward_propagation_implementation(alg::Matrix &im) = 0;
         virtual alg::Matrix backward_propagation_implementation(alg::Matrix &data, alg::Matrix &out_error, alg::t_type alpha) = 0;  
-        // Write
+        // Write & Read
         virtual void write(std::ostream& os) const = 0;
+        virtual void read(std::istream& os) = 0;
     };
 
     std::ostream& operator<<(std::ostream& os, const BaseLayer& layer);
+    std::istream& operator>> (std::istream& is, BaseLayer&  dt);
 }
 
 

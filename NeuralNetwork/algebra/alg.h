@@ -50,6 +50,7 @@ namespace alg
             // Friend functions
             friend Matrix mat_prod (Matrix &a,Matrix &b);
             friend std::ostream& operator<<(std::ostream& os, const Matrix& m);
+            friend std::istream& operator>>(std::istream& is, Matrix& m);
     };
 
     Matrix mat_prod(Matrix &a, Matrix &b);    

@@ -20,6 +20,9 @@ namespace ai{
 
     // Write
     void ActLayer::write(std::ostream& os) const {
-        os << "ActLayer" << std::endl;
+        os << std::endl;
+    }
+    void ActLayer::read(std::istream& is) {
+        return;
     }
 }

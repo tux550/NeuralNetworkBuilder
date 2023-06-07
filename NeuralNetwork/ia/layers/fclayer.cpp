@@ -54,6 +54,9 @@ namespace ai{
     }
     // Write
     void FCLayer::write(std::ostream& os) const {
-        os << "FCLayer" << std::endl << weights_mat << bias;
+        os << weights_mat << std::endl << bias << std::endl;
+    }
+    void FCLayer::read(std::istream& is) {
+        is >> weights_mat >> bias;
     }
 }

@@ -39,6 +39,11 @@ namespace ai{
         (&layer)->write(os); // Overload
         return os;
     }
+
+    std::istream& operator>> (std::istream& is, BaseLayer&  layer) {
+        (&layer)->read(is); // Overload
+        return is;
+    }
 }
 
 

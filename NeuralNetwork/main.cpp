@@ -3,6 +3,7 @@
 #include <memory>
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <stdexcept>
 #include "load/load.h"
 #include "algebra/alg.h"
@@ -68,6 +69,7 @@ void train_from_inputs(ai::Network& nw, alg::vec_mat& x_train, alg::vec_mat& y_t
 int main() {
     debug_print("Create Network");
     auto nw = nw_from_inputs(); //auto nw = ai::Network::FullMLP({4,20,20,3},hypertan, hypertan_drv,mse, mse_drv);
+    auto nw2 = nw;
 
     debug_print("Load Dataset");
     auto x_train = dataset_from_inputs(); //load_file("../Dataset/x.csv");
@@ -86,6 +88,12 @@ int main() {
 
     debug_print("nw");
     std::cout << nw;
+
+    stringstream buffer; 
+    buffer << nw;
+    buffer >> nw2;
+    debug_print("nw2");
+        std::cout << nw2;
     /*
     debug_print("Stadistics");
     vector<double> misses(3);

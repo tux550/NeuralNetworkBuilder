@@ -16,6 +16,7 @@ namespace ai{
             alg::Matrix forward_propagation_implementation(alg::Matrix &im);
             alg::Matrix backward_propagation_implementation(alg::Matrix &data, alg::Matrix &out_error, alg::t_type alpha);
             void write(std::ostream& os) const;
+            void read(std::istream& is);
     };
 };
 

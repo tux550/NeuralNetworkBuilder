@@ -253,4 +253,15 @@ namespace alg
         return os;
     }
 
+    std::istream& operator>>(std::istream& is, Matrix& m) {
+        t_type tmp;
+        for (t_dim r=0; r<m.get_rows(); r++) {
+            for (t_dim c=0; c<m.get_cols(); c++) {
+                is >> tmp;
+                m.set_val(r,c, tmp);
+            }
+        }
+        return is;
+    }
+
 }

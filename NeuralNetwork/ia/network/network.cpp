@@ -104,4 +104,11 @@ namespace ai
         }
         return os;
     }
+
+    std::istream& operator>>(std::istream& is, Network& nw) {
+        for (auto &l: nw.layers) {
+            is >> (*l);
+        }
+        return is;
+    }
 }
