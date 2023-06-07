@@ -49,7 +49,7 @@ def load_wavs(wav_limit = None, fv_size=128):
 
 def main():
     print("Loading Wavs ...")
-    X,Y = load_wavs(fv_size=32) #wav_limit=2)
+    X,Y = load_wavs(fv_size=128) #wav_limit=2)
     print("X shape",X.shape)
     print("Y shape",Y.shape)
 

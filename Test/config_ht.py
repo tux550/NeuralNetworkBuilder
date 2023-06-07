@@ -1,7 +1,7 @@
 
 default_arch_ht = {
     # ARCHITECTURE
-    "input_size":32,
+    "input_size":128,
     "output_size":24,
     "depth":2,
     "nodes":20,

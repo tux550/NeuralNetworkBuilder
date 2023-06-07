@@ -5,7 +5,7 @@ from config_ht import *
 
 default_arch = {
     # ARCHITECTURE
-    "input_size":32,
+    "input_size":128,
     "output_size":24,
     "depth":2,#"depth":1,
     "nodes":20,
