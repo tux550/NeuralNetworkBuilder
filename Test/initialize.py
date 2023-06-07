@@ -8,7 +8,7 @@ DATASET_PATH_SONG = "raw_dataset/sound_dataset/Song"
 DATASET_PATH_SPEECH = "raw_dataset/sound_dataset/Speech"
 DATASET_PATH_LS = [DATASET_PATH_SONG,DATASET_PATH_SPEECH,] 
 
-def load_wavs(wav_limit = None):
+def load_wavs(wav_limit = None, fv_size=128):
     # Init X, Y dataset
     raw_X = []
     raw_Y = []
@@ -24,7 +24,7 @@ def load_wavs(wav_limit = None):
             print(f"Loading:{dataset_path}-{actor}")
             wavpath_ls = actors_dict[actor]
             for wav_path in wavpath_ls:
-                fv = wav2fv(wav_path,fv_size=128)
+                fv = wav2fv(wav_path,fv_size=fv_size)
                 raw_X.append(fv)
                 if actor in actor_label:
                     raw_Y.append(actor_label[actor])
@@ -49,7 +49,8 @@ def load_wavs(wav_limit = None):
 
 def main():
     print("Loading Wavs ...")
-    X,Y = load_wavs() #wav_limit=2)
+    X,Y = load_wavs(wav_limit=2
+                    , fv_size=32) #wav_limit=2)
     print("X shape",X.shape)
     print("Y shape",Y.shape)
 

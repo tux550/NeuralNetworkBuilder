@@ -40,11 +40,17 @@ def run_train_test_save(parameters_dict):
     cmd = CMD.format(parameters=parameters, exe_file=EXECUTABLE)
     # RUN
     print("Running with parameters:", parameters)
+    print("cmd:", cmd)
     if os.name == "nt":
         # Windows
         y_pred =subprocess.getoutput(['powershell',cmd])
     else:
         # Linux
         y_pred =subprocess.getoutput(cmd)
-    y_pred =numpy_from_str(y_pred)
+    try:
+        y_pred =numpy_from_str(y_pred)
+    except Exception as e:
+        print("EXCEPTION")
+        print(y_pred)
+        raise e
     return y_pred

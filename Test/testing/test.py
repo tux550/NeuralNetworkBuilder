@@ -1,7 +1,7 @@
 from utils.metrics import get_metrics
 from .table import table_results
 
-def test_hyperparameter(hp_name, hp_list,arch_config, train_config, test_config, name_template):
+def test_hyperparameter(hp_name, hp_list,arch_config, train_config, test_config, name_template, display_cm=False):
     # Results
     results = dict()
     # For each value
@@ -14,7 +14,7 @@ def test_hyperparameter(hp_name, hp_list,arch_config, train_config, test_config,
         else:
             raise "Hyperparameter {hp_name} does not exist"
         # Get metrics
-        metrics = get_metrics(arch_config, train_config, test_config, name_template.format(str(hp)))
+        metrics = get_metrics(arch_config, train_config, test_config, name_template.format(str(hp)), display_cm=display_cm)
         # Save to results
         results[hp] = metrics
     # Display
