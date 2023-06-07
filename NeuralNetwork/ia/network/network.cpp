@@ -59,14 +59,22 @@ namespace ai
         std::random_device rd;
         std::mt19937 gen(rd());
 
+        auto batch_i = batch_indexes.size();
         // Epochs
         for (t_count i = 0; i < epochs; i++)
         {
             // Create batch
-            std::shuffle(batch_indexes.begin(), batch_indexes.end(), gen);
             for (auto b=0; b<batch_size; b++) {
-                x_batch[b] = x_train[batch_indexes[b]];
-                y_batch[b] =  y_train[batch_indexes[b]];
+                // Reshuffle
+                if (batch_i == batch_indexes.size()) {
+                    std::shuffle(batch_indexes.begin(), batch_indexes.end(), gen);
+                    batch_i = 0;
+                }
+                // Save element
+                x_batch[b] = x_train[batch_indexes[batch_i]];
+                y_batch[b] =  y_train[batch_indexes[batch_i]];
+                // Next element
+                batch_i++;
             }
 
             alg::t_type error_total = 0;
@@ -86,7 +94,7 @@ namespace ai
                 //std::cout << "LAYER:" << k  << std::endl;
                 error_vec = layers[k]->backward_propagation(error_vec, alpha);
             } 
-            if (i%epoch_intr == 0) {
+            if ( (i%epoch_intr == 0) || (i+1==epochs) ) {
                 verbose_print("Epoch " + std::to_string(i) + "/" + std::to_string(epochs) + " Error=" + std::to_string(error_total));
             }
 
