@@ -12,17 +12,27 @@ def numpy_from_str(txt):
 def run_exe(parameters_dict):
     # CONSTANTS
     KEY_ORDER = [
+        # MODE
+        "train_load",
+        "test",
+        "save",
+        # ARCHITECTURE
         "input_size",
         "output_size",
         "depth",
         "nodes",
         "activation_function",
         "loss_function",
-        "filename_x",
-        "filename_y",
+        # TRAIN
+        "filename_x_train",
+        "filename_y_train",
         "epochs",
         "alpha",
-        "batch_size"
+        "batch_size",
+        # TEST
+        "filename_x_test",
+        # SAVE
+        "filename_export_model"
     ]
     EXECUTABLE = "../NeuralNetwork/mlp.exe"
     CMD = 'echo "{parameters}" | {exe_file}'
@@ -41,7 +51,7 @@ def metrics(parameters_dict):
     y_pred = run_exe(parameters_dict)
     y_pred = np.argmax(y_pred, axis=1)
     # Y TRUE
-    y_true = numpy_from_file(parameters_dict["filename_y"])
+    y_true = numpy_from_file(parameters_dict["filename_y_test"])
     y_true = np.argmax(y_true, axis=1)
     # Generate Matrix
     cm = confusion_matrix(y_true, y_pred)
@@ -57,33 +67,29 @@ def metrics(parameters_dict):
 
     print(metrics)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 default = {
-    "input_size" : 4,
-    "output_size" : 3,
-    "depth" : 2,
-    "nodes" : 40,
-    "activation_function" : "hypertan",
-    "loss_function" : "mse",
-    "filename_x" : "../Dataset/x.csv",
-    "filename_y" : "../Dataset/y.csv",
-    "epochs" :10000,
-    "alpha" : 0.01,
-    "batch_size" : 4,
+    # MODE
+    "train_load":1,
+    "test":1,
+    "save":1,
+    # ARCHITECTURE
+    "input_size":4,
+    "output_size":3,
+    "depth":2,
+    "nodes":40,
+    "activation_function":"hypertan",
+    "loss_function":"mse",
+    # TRAIN
+    "filename_x_train":"../Dataset/x.csv",
+    "filename_y_train":"../Dataset/y.csv",
+    "epochs":10000,
+    "alpha":0.01,
+    "batch_size":4,
+    # TEST
+    "filename_x_test":"../Dataset/x.csv",
+    "filename_y_test":"../Dataset/y.csv",
+    # SAVE
+    "filename_export_model":"model.mdl",
 }
 
 

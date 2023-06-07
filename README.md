@@ -16,7 +16,7 @@ Input.txt format
 {filename_import_model}
 
 // If test (test=1)
-{filename_x_test} {filename_y_test}
+{filename_x_test}
 
 // If save (save=1)
 {filename_export_model}
