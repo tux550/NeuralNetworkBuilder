@@ -1,5 +1,8 @@
 # IA-p3
 
+## Notes
+- Hypertan tiene mejores resultados con vector caracteristico mas pequeño (32)
+
 ## MLP
 Input.txt format
 ```
