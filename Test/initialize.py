@@ -35,21 +35,21 @@ def load_wavs(wav_limit = None, fv_size=128):
 
     # Dataset to np arrays
     print("Dataset to np")
-    X=[]
-    Y=[]
 
-    for x,y in zip(raw_X,raw_Y):
-        X.extend([row for row in x.T])
-        y_row = [y==i for i in range(len(actor_label.keys()))]
-        Y.extend([y_row for _ in range(x.shape[1])])
-    X = np.array(X)
-    Y = np.array(Y)
+    raw_Y = [
+        [y==i for i in range(len(actor_label.keys()))]
+        for y
+        in raw_Y
+    ]
+
+    X = np.array(raw_X)
+    Y = np.array(raw_Y)
     # Return
     return X,Y
 
 def main():
     print("Loading Wavs ...")
-    X,Y = load_wavs(wav_limit=2
+    X,Y = load_wavs(wav_limit=10
                     , fv_size=32) #wav_limit=2)
     print("X shape",X.shape)
     print("Y shape",Y.shape)

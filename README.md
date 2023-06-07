@@ -7,7 +7,8 @@ Input.txt format
 {train_load} {test} {save}
 
 // Architectures
-{input_size} {output_size} {depth} {nodes} {activation_function} {loss function}
+{input_size} {output_size} {depth}
+{nodes} {activation_function} {loss_function} //TODO: for each layer
 
 // If train mode (train_load=1)
 {filename_x_train} {filename_y_train}

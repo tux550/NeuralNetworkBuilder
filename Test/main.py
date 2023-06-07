@@ -26,8 +26,8 @@ default_test = {
     "filename_y_test":"dataset/y_train.csv",
 }
 
-"""
-default_arch = {
+
+iris_arch = {
     # ARCHITECTURE
     "input_size":4,
     "output_size":3,
@@ -36,7 +36,7 @@ default_arch = {
     "activation_function":"hypertan",
     "loss_function":"mse",
 }
-default_train = {
+iris_train = {
     # TRAIN
     "filename_x_train":"../Dataset/x.csv",
     "filename_y_train":"../Dataset/y.csv",
@@ -45,12 +45,13 @@ default_train = {
     "batch_size":4,
 }
 
-default_test = {
+iris_test = {
     # TEST
     "filename_x_test":"../Dataset/x.csv",
     "filename_y_test":"../Dataset/y.csv",
 }
-"""
+
 
 test_hyperparameter("alpha",[0.01,],default_arch, default_train, default_test, "model_hp_{}.mdl", display_cm=True)
-#get_metrics(default_arch, default_train, default_test, "model_test.mdl")
+#test_hyperparameter("alpha",[0.01,],iris_arch, iris_train, iris_test, "model_hp_{}.mdl", display_cm=True)
+
