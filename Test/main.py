@@ -31,18 +31,18 @@ iris_arch = {
     # ARCHITECTURE
     "input_size":4,
     "output_size":3,
-    "depth":2,
+    "depth":4,
     "nodes":40,
-    "activation_function":"hypertan",
+    "activation_function":"relu",
     "loss_function":"mse",
 }
 iris_train = {
     # TRAIN
     "filename_x_train":"../Dataset/x.csv",
     "filename_y_train":"../Dataset/y.csv",
-    "epochs":100000,
+    "epochs":10000,
     "alpha":0.01,
-    "batch_size":4,
+    "batch_size":1,
 }
 
 iris_test = {
@@ -52,6 +52,6 @@ iris_test = {
 }
 
 
-test_hyperparameter("alpha",[0.0001,],default_arch, default_train, default_test, "model_hp_{}.mdl", display_cm=True)
-#test_hyperparameter("alpha",[0.01,],iris_arch, iris_train, iris_test, "model_hp_{}.mdl", display_cm=True)
+#test_hyperparameter("alpha",[0.0001,],default_arch, default_train, default_test, "model_hp_{}.mdl", display_cm=True)
+test_hyperparameter("alpha",[0.01,],iris_arch, iris_train, iris_test, "model_hp_{}.mdl", display_cm=True)
 

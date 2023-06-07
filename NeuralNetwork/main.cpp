@@ -39,6 +39,9 @@ ai::Network nw_from_inputs( ) {
     if (str_act_func == "hypertan") {
         act_func = hypertan;
         act_drv = hypertan_drv;
+    } else if (str_act_func == "relu") {
+        act_func = relu;
+        act_drv = relu_drv;
     } else {
         throw std::invalid_argument("Invalid act func");
     }
