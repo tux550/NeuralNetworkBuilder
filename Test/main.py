@@ -7,7 +7,7 @@ default_arch = {
     # ARCHITECTURE
     "input_size":32,
     "output_size":24,
-    "depth":1,
+    "depth":2,#"depth":1,
     "nodes":20,
     "activation_function":"hypertan",
     "loss_function":"mse",
@@ -28,6 +28,6 @@ default_test = {
 }
 
 
-test_hyperparameter("batch_size",[1,],default_arch_ht, default_train_ht, default_test_ht, "model_bs_{}.mdl", display_cm=True)
+test_hyperparameter("nodes",[10,20,40,60,100],default_arch_ht, default_train_ht, default_test_ht, "model_bs_{}.mdl", display_cm=True)
 #test_hyperparameter("batch_size",[1,],iris_arch, iris_train, iris_test, "model_iris_{}.mdl", display_cm=True)
 
