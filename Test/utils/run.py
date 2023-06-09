@@ -9,11 +9,8 @@ KEY_ORDER = [
     "test",
     "save",
     # ARCHITECTURE
-    "input_size",
-    "output_size",
     "depth",
-    "nodes",
-    "activation_function",
+    "network_arch",
     "loss_function",
     # TRAIN
     "filename_x_train",
@@ -35,6 +32,17 @@ def run_train_test_save(parameters_dict):
     parameters_dict["train_load"]=1
     parameters_dict["test"]=1
     parameters_dict["save"]=1
+    # SET Network arch
+    parameters_dict["depth"] = len(parameters_dict["nodes_size"])+1
+    parameters_dict["network_arch"] = str(parameters_dict["input_size"]) + " "  + " ".join(
+        [
+            str(n)+" "+str(f) for n,f in zip(
+                parameters_dict["nodes_size"],
+                parameters_dict["activation_function"]
+            )
+        ])
+    
+
     # FORMAT
     parameters = " ".join([ str(parameters_dict[k]) for k in KEY_ORDER])
     cmd = CMD.format(parameters=parameters, exe_file=EXECUTABLE)

@@ -1,10 +1,8 @@
 iris_arch = {
     # ARCHITECTURE
-    "input_size":4,
-    "output_size":3,
-    "depth":4,
-    "nodes":40,
-    "activation_function":"relu",
+    "input_size": 4,
+    "nodes_size": [60,60,60,3],
+    "activation_function":["hypertan","hypertan","hypertan","hypertan"],
     "loss_function":"mse",
 }
 iris_train = {

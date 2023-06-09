@@ -13,7 +13,7 @@ namespace ai
         loss_drv{_loss_drv}
         {}
 
-    Network Network::FullMLP(std::vector<alg::t_dim> vec_nodes_num, alg::t_t2t _act_func, alg::t_t2t _drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv) {
+    Network Network::FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_t2t> vec_act_func, std::vector<alg::t_t2t> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv) {
         auto nw = ai::Network(_loss, _loss_drv);
 
         for (auto i=0; i<vec_nodes_num.size() -1 ; i++) {
@@ -21,7 +21,7 @@ namespace ai
             auto nodes_out = vec_nodes_num[i+1];
 
             ai::ptr_layer fc_layer  = std::make_shared<ai::FCLayer>(nodes_in,nodes_out);
-            ai::ptr_layer act_layer = std::make_shared<ai::ActLayer>(nodes_out, _act_func, _drv_func);
+            ai::ptr_layer act_layer = std::make_shared<ai::ActLayer>(nodes_out, vec_act_func[i], vec_drv_func[i]);
 
         nw.add_layer(fc_layer);
         nw.add_layer(act_layer);

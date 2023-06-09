@@ -5,11 +5,9 @@ from config_ht import *
 
 default_arch = {
     # ARCHITECTURE
-    "input_size":128,
-    "output_size":24,
-    "depth":2,#"depth":1,
-    "nodes":20,
-    "activation_function":"hypertan",
+    "input_size": 4,
+    "nodes_size": [40,40,3],
+    "activation_function":["hypertan","hypertan","hypertan"],
     "loss_function":"mse",
 }
 default_train = {
@@ -28,6 +26,7 @@ default_test = {
 }
 
 
-test_hyperparameter("nodes",[10,20,40,60,100],default_arch_ht, default_train_ht, default_test_ht, "model_bs_{}.mdl", display_cm=True)
+#test_hyperparameter("nodes",[10,20,40,60,100],default_arch_ht, default_train_ht, default_test_ht, "model_bs_{}.mdl", display_cm=True)
+test_hyperparameter("batch_size",[1,],default_arch_ht, default_train_ht, default_test_ht, "model_bs_{}.mdl", display_cm=True)
 #test_hyperparameter("batch_size",[1,],iris_arch, iris_train, iris_test, "model_iris_{}.mdl", display_cm=True)
 

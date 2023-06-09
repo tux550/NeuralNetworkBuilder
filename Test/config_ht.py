@@ -1,19 +1,17 @@
 
 default_arch_ht = {
     # ARCHITECTURE
-    "input_size":128,
-    "output_size":24,
-    "depth":2,
-    "nodes":20,
-    "activation_function":"hypertan",
+    "input_size": 128,
+    "nodes_size": [100,100,24],
+    "activation_function":["hypertan","hypertan","hypertan"],
     "loss_function":"mse",
 }
 default_train_ht = {
     # TRAIN
     "filename_x_train":"dataset/x_train.csv",
     "filename_y_train":"dataset/y_train.csv",
-    "epochs":100_000,
-    "alpha":0.01,
+    "epochs":1_000_000,
+    "alpha":0.0001,
     "batch_size":1,
 }
 
