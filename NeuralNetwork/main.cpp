@@ -46,7 +46,11 @@ ai::Network nw_from_inputs( ) {
             } else if (str_act_func == "relu") {
                 vec_act_func.push_back(relu);
                 vec_act_drv.push_back(relu_drv);
-            } else {
+            } else if (str_act_func == "sigmoid")  {
+                vec_act_func.push_back(sigmoid);
+                vec_act_drv.push_back(sigmoid_drv);
+            }
+            else {
                 std::cout << str_act_func << " " << n << std::endl;
                 throw std::invalid_argument("Invalid act func");
             }

@@ -3,7 +3,8 @@ default_arch_ht = {
     # ARCHITECTURE
     "input_size": 128,
     "nodes_size": [60,60,60,60,60,24],
-    "activation_function":["relu","relu","relu","relu","relu","hypertan"],
+    "activation_function":["relu","relu","relu","relu","relu","sigmoid"],
+    #"activation_function":["relu","relu","relu","relu","relu","hypertan"],
     #"nodes_size": [100,100,24],
     #"activation_function":["hypertan","hypertan","hypertan"],
     "loss_function":"mse",
