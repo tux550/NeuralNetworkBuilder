@@ -1,4 +1,5 @@
 #include "./functions.h"
+#include <iostream>
 
 alg::t_type s(alg::t_type x) {
     return 1 / (1+std::exp(-x));
@@ -32,13 +33,15 @@ void sigmoid_drv(alg::t_type &x){
 
 alg::t_mat mse(alg::t_mat &y_true, alg::t_mat &y_pred) {
     // MSE: SUM{(y-y')**2} * (1/n)
-    return arma::pow((y_pred-y_true),2);
+    alg::t_type invn = (1.0/arma::size(y_true)[1]);
+    return arma::pow((y_pred-y_true),2.0) * invn;
     //return  arma::accu(arma::pow((a-b),2)) / arma::size(a)[1];
 }
 
 alg::t_mat mse_drv(alg::t_mat &y_true, alg::t_mat &y_pred) {
     // drvMSE: SUM{(y-y')} * (2/n)
     alg::t_mat dif = y_pred-y_true;
-    return dif.for_each([](alg::t_type& x) { x = x*2;});
+    alg::t_type invn = (1.0/arma::size(y_true)[1]);
+    return dif.for_each([](alg::t_type& x) { x = x*2.0;}) * invn ;
     //return arma::accu(a-b) * (2/arma::size(a)[1]);
 }

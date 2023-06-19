@@ -13,8 +13,8 @@ default_train_ht = {
     # TRAIN
     "filename_x_train":"dataset/x_train.csv",
     "filename_y_train":"dataset/y_train.csv",
-    "epochs":50,
-    "alpha":0.01,
+    "epochs":100,
+    "alpha":0.001,
 }
 
 default_test_ht = {
