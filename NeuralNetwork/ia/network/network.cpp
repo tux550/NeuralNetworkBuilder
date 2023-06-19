@@ -13,7 +13,7 @@ namespace ai
         loss_drv{_loss_drv}
         {}
 
-    Network Network::FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_t2t> vec_act_func, std::vector<alg::t_t2t> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv) {
+    Network Network::FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_m2m> vec_act_func, std::vector<alg::t_m2m> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv) {
         auto nw = ai::Network(_loss, _loss_drv);
 
         for (auto i=0; i<vec_nodes_num.size() -1 ; i++) {
@@ -37,66 +37,60 @@ namespace ai
     }
     // Predict 
     alg::vec_mat Network::predict(alg::vec_mat &inp) {
-        alg::vec_mat res = inp;
-        for (auto &l : layers) {
-            res = l->forward_propagation(res);
+        alg::vec_mat res;
+        for (auto X : inp){
+            for (auto &l : layers) {
+                X = l->forward_propagation(X);
+            }
+            res.push_back(X);
         }
         return res;
     }
-    // Fit
-    void Network::fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count batch_size, t_count epoch_intr) {
-        // Batch size
-        if (batch_size > x_train.size()) {
-            batch_size = x_train.size();
+    alg::t_mat Network::predict(alg::t_mat &inp) {
+        alg::t_mat X = inp;
+        for (auto &l : layers) {
+            X = l->forward_propagation(X);
         }
-        // Batch selection
-        alg::vec_mat x_batch(batch_size);
-        alg::vec_mat y_batch(batch_size);
-        std::vector<std::size_t> batch_indexes(x_train.size());
-        std::iota (std::begin(batch_indexes), std::end(batch_indexes), 0);
+        return X;
+    }
+
+    // Fit
+    void Network::fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr) {
+        // Order selection selection
+        std::vector<std::size_t> input_indexes(x_train.size());
+        std::iota (std::begin(input_indexes), std::end(input_indexes), 0);
 
         // Random
         std::random_device rd;
         std::mt19937 gen(rd());
 
-        auto batch_i = batch_indexes.size();
         // Epochs
         for (t_count i = 0; i < epochs; i++)
-        {
-            // Create batch
-            for (auto b=0; b<batch_size; b++) {
-                // Reshuffle
-                if (batch_i == batch_indexes.size()) {
-                    std::shuffle(batch_indexes.begin(), batch_indexes.end(), gen);
-                    batch_i = 0;
-                }
-                // Save element
-                x_batch[b] = x_train[batch_indexes[batch_i]];
-                y_batch[b] =  y_train[batch_indexes[batch_i]];
-                // Next element
-                batch_i++;
-            }
+        {   
+            // Epoch total error
+            alg::t_type total_error;
+            alg::t_mat error;
 
-            alg::t_type error_total = 0;
-            // Forward Propagation
-            auto res = predict(x_batch);
-            // Error
-            alg::vec_mat error_vec;
-            for (t_count j = 0; j < batch_size; j++) {
-                error_total += loss(y_batch[j], res[j]).sum();
-                auto error = loss_drv(y_batch[j], res[j]);
-                error_vec.push_back(error);
-            }
+            // Reshuffle
+            std::shuffle(input_indexes.begin(), input_indexes.end(), gen);
+            // Error for each element
+            for (auto &idx : input_indexes) {
+                // Forward Propagation
+                auto res = predict(x_train[idx]);
+                // Error
+                total_error += arma::accu(loss(y_train[idx], res));
+                error = loss_drv(y_train[idx], res);
+                // Backward Propagation
+                for (int k = layers.size()-1; k>= 0; k--){
+                    //std::cout << "K:" << k << " shape:" << arma::size(error) << std::endl;
+                    error = layers[k]->backward_propagation(error, alpha);
+                } 
+            }            
 
 
-            // Backward Propagation
-            for (int k = layers.size()-1; k>= 0; k--){
-                //std::cout << "LAYER:" << k  << std::endl;
-                error_vec = layers[k]->backward_propagation(error_vec, alpha);
-            } 
-            if ( (i%epoch_intr == 0) || (i+1==epochs) ) {
-                verbose_print("Epoch " + std::to_string(i) + "/" + std::to_string(epochs) + " Error=" + std::to_string(error_total));
-            }
+            //if ( (i%epoch_intr == 0) || (i+1==epochs) ) {
+            verbose_print("Epoch " + std::to_string(i) + "/" + std::to_string(epochs) + " Error=" + std::to_string(total_error));
+            //}
 
         }
     }

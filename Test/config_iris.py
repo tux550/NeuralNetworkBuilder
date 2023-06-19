@@ -9,7 +9,7 @@ iris_train = {
     # TRAIN
     "filename_x_train":"../Dataset/x.csv",
     "filename_y_train":"../Dataset/y.csv",
-    "epochs":50_000,
+    "epochs":50,
     "alpha":0.001,
     "batch_size":1,
 }

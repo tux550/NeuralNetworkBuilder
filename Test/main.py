@@ -14,7 +14,7 @@ default_train = {
     # TRAIN
     "filename_x_train":"dataset/x_train.csv",
     "filename_y_train":"dataset/y_train.csv",
-    "epochs":100_000,
+    "epochs":5_000,
     "alpha":0.01,
     "batch_size":1,
 }

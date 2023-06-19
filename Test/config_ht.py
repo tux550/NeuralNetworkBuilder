@@ -10,8 +10,8 @@ default_train_ht = {
     # TRAIN
     "filename_x_train":"dataset/x_train.csv",
     "filename_y_train":"dataset/y_train.csv",
-    "epochs":1_000_000,
-    "alpha":0.0001,
+    "epochs":10,
+    "alpha":0.01,
     "batch_size":1,
 }
 

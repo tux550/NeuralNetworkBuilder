@@ -1,71 +1,47 @@
 #include "./functions.h"
 
-alg::t_type relu(alg::t_type x){
-    if (x>0) {return x;}
-    else {return 0;}
+alg::t_mat relu(alg::t_mat &X){
+    alg::t_mat res = X;
+    res.for_each( [](alg::t_type& val) {
+        if (val<=0) {val = 0;}
+    });
+    return res;
 }
 
-alg::t_type relu_drv(alg::t_type x){
-    if (x>0) {return 1;}
-    else {return 0;}
+alg::t_mat relu_drv(alg::t_mat &X){
+    alg::t_mat res = X;
+    res.for_each( [](alg::t_type& val) {
+        if (val>0) {val = 1;}
+        else {val = 0;}
+    });
+    return res;
 }
 
-alg::t_type hypertan(alg::t_type x){
-    return std::tanh(x);
+alg::t_mat hypertan(alg::t_mat &X){
+    alg::t_mat res = X;
+    res.for_each( [](alg::t_type& val) {
+        val = std::tanh(val);
+    });
+    return res;
 }
 
-alg::t_type hypertan_drv(alg::t_type x){
-    return 1-std::pow(std::tanh(x),2);
+alg::t_mat hypertan_drv(alg::t_mat &X){
+    alg::t_mat res = X;
+    res.for_each( [](alg::t_type& val) {
+        val = 1-std::pow(std::tanh(val),2);
+    });
+    return res;
 }
 
-alg::Matrix mse(alg::Matrix &a, alg::Matrix &b) {
-    // Validate
-    if (a.get_rows() != b.get_rows()) {
-        throw std::invalid_argument("mse: rows missmatch");
-    }
-    if (a.get_cols() != b.get_cols()) {
-        throw std::invalid_argument("mse: cols missmatch");
-    }
-    // MSE
-    auto mse = alg::Matrix(1, a.get_cols());
-    alg::t_type n = a.get_cols();
-    for (auto c = 0; c < a.get_cols(); c++)
-    {
-        alg::t_type tmp = 0;
-        for (auto r = 0; r < a.get_rows(); r++)
-        {
-            // (y_true-y_pred)**2
-            tmp += std::pow((a.get_val(r,c)-b.get_val(r,c)),2);
-        }
-        mse.set_val(0,c,tmp);
-    }
-    mse = mse * (1/n); // 1/n * SUM{(y-y')**2} 
-    // Return
-    return mse;
+alg::t_mat mse(alg::t_mat &y_true, alg::t_mat &y_pred) {
+    // MSE: SUM{(y-y')**2} * (1/n)
+    return arma::pow((y_pred-y_true),2);
+    //return  arma::accu(arma::pow((a-b),2)) / arma::size(a)[1];
 }
 
-alg::Matrix mse_drv(alg::Matrix &a, alg::Matrix &b) {
-    // Validate
-    if (a.get_rows() != b.get_rows()) {
-        throw std::invalid_argument("mse_drv: rows missmatch");
-    }
-    if (a.get_cols() != b.get_cols()) {
-        throw std::invalid_argument("mse_drv: cols missmatch");
-    }
-    // MSE DRV
-    auto mse_drv = alg::Matrix(1, a.get_cols());
-    alg::t_type n = a.get_cols();
-    for (auto c = 0; c < a.get_cols(); c++)
-    {
-        alg::t_type tmp = 0;
-        for (auto r = 0; r < a.get_rows(); r++)
-        {
-            // (y_pred-y_true)
-            tmp += (b.get_val(r,c)-a.get_val(r,c));
-        }
-        mse_drv.set_val(0,c,tmp);
-    }
-    mse_drv = mse_drv * (2/n); // 2/n * SUM{(y-y')}
-    // Return
-    return mse_drv;
+alg::t_mat mse_drv(alg::t_mat &y_true, alg::t_mat &y_pred) {
+    // drvMSE: SUM{(y-y')} * (2/n)
+    alg::t_mat dif = y_pred-y_true;
+    return dif.for_each([](alg::t_type& x) { x = x*2;});
+    //return arma::accu(a-b) * (2/arma::size(a)[1]);
 }

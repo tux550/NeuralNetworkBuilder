@@ -15,7 +15,7 @@ namespace ai
 {
     using ptr_layer  = std::shared_ptr<ai::BaseLayer>;
     using vec_layers = std::vector<ptr_layer>;
-    using t_count    = int;
+    using t_count    = long;
 
     class Network
     {
@@ -26,7 +26,7 @@ namespace ai
         public:
             // Constructor
             Network(alg::t_mm2m _loss, alg::t_mm2m _loss_drv);
-            static Network FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_t2t> vec_act_func, std::vector<alg::t_t2t> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv);
+            static Network FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_m2m> vec_act_func, std::vector<alg::t_m2m> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv);
             // Destructor
             ~Network();
 
@@ -34,8 +34,9 @@ namespace ai
             void add_layer(ptr_layer layer);
             // Predict
             alg::vec_mat predict(alg::vec_mat &inp);
+            alg::t_mat predict(alg::t_mat &inp);
             // Fit
-            void fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count batch_size=4, t_count epoch_intr = 1000);
+            void fit(alg::vec_mat &x_train, alg::vec_mat &y_train, t_count epochs, alg::t_type alpha, t_count epoch_intr = 1);
             // Export
             void export_model(std::string out_filename);
             // Friend functions

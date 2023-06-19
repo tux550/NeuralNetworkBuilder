@@ -15,7 +15,6 @@
 
 
 using namespace std;
-int get_prediction(alg::Matrix& y_pred);
 
 void mode_from_inputs(int &train_load, int &test,int &save) {
     std::cin >> train_load >> test >> save;
@@ -25,8 +24,8 @@ ai::Network nw_from_inputs( ) {
     // Init
     alg::t_dim depth;
     std::vector<alg::t_dim> vec_nodes;
-    std::vector<alg::t_t2t> vec_act_func;
-    std::vector<alg::t_t2t> vec_act_drv;
+    std::vector<alg::t_m2m> vec_act_func;
+    std::vector<alg::t_m2m> vec_act_drv;
     alg::t_mm2m loss_func, loss_drv;
     // Tmp
     alg::t_dim nodes;
@@ -79,7 +78,7 @@ void train_from_inputs(ai::Network& nw, alg::vec_mat& x_train, alg::vec_mat& y_t
     // Get data
     std::cin >> epochs >> alpha >> batch_size;
     // Train
-    nw.fit(x_train,y_train,epochs, alpha, batch_size);
+    nw.fit(x_train,y_train,epochs, alpha); //, batch_size);
 }
 
 
@@ -146,36 +145,6 @@ int main() {
         save_from_inputs(nw);
     }
 
-
-
-    
-
-
-    /*
-    stringstream buffer; 
-    buffer << nw;
-    buffer >> nw2;
-    debug_print("nw2");
-        std::cout << nw2;
-    */
-    /*
-    debug_print("Stadistics");
-    vector<double> misses(3);
-    vector<double> total(3);
-    
-    for (int ind = 0; ind < res.size(); ind ++) {
-        auto real = get_prediction( y_train[ind] );
-        if ( real != get_prediction( res[ind] ) ) {
-            misses[real] += 1;            
-        }
-        total[real] += 1;
-    }
-    cout << "Misses:" << endl;
-    for (int i=0; i<3; i++) {
-        cout << misses[i] / total[i] <<  std::endl;
-    } 
-    */
-
 }
 
 
@@ -183,20 +152,3 @@ int main() {
 
 
 
-
-
-
-
-// TEMPORARY:
-int get_prediction(alg::Matrix& y_pred) {
-    int res = 0;
-    auto val = y_pred.get_val(0,0);
-    for (int i=1; i<y_pred.get_cols(); i++) {
-        auto new_val = y_pred.get_val(0,i);
-        if (new_val > val) {
-            res = i;
-            val = new_val;
-        }
-    }
-    return res;
-}
