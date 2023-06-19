@@ -12,7 +12,6 @@ default_train_ht = {
     "filename_y_train":"dataset/y_train.csv",
     "epochs":10,
     "alpha":0.01,
-    "batch_size":1,
 }
 
 default_test_ht = {

@@ -16,7 +16,7 @@ Input.txt format
 
 // If train mode (train_load=1)
 {filename_x_train} {filename_y_train}
-{epochs} {alpha} {batch_size}
+{epochs} {alpha}
 // Else load mode (train_load=0)
 {filename_import_model}
 

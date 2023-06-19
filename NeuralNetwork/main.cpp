@@ -73,12 +73,12 @@ alg::vec_mat dataset_from_inputs() {
 
 void train_from_inputs(ai::Network& nw, alg::vec_mat& x_train, alg::vec_mat& y_train) {
     // Init
-    ai::t_count epochs, batch_size;
+    ai::t_count epochs;
     alg::t_type alpha; 
     // Get data
-    std::cin >> epochs >> alpha >> batch_size;
+    std::cin >> epochs >> alpha;
     // Train
-    nw.fit(x_train,y_train,epochs, alpha); //, batch_size);
+    nw.fit(x_train,y_train,epochs, alpha);
 }
 
 

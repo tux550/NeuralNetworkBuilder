@@ -17,7 +17,6 @@ KEY_ORDER = [
     "filename_y_train",
     "epochs",
     "alpha",
-    "batch_size",
     # TEST
     "filename_x_test",
     # SAVE
