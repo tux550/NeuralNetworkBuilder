@@ -16,7 +16,6 @@ default_train = {
     "filename_y_train":"dataset/y_train.csv",
     "epochs":5_000,
     "alpha":0.01,
-    "batch_size":1,
 }
 
 default_test = {
@@ -27,6 +26,6 @@ default_test = {
 
 
 #test_hyperparameter("nodes",[10,20,40,60,100],default_arch_ht, default_train_ht, default_test_ht, "model_bs_{}.mdl", display_cm=True)
-test_hyperparameter("batch_size",[1,],default_arch_ht, default_train_ht, default_test_ht, "model_bs_{}.mdl", display_cm=True)
-#test_hyperparameter("batch_size",[1,],iris_arch, iris_train, iris_test, "model_iris_{}.mdl", display_cm=True)
+test_hyperparameter("epochs",[10,],default_arch_ht, default_train_ht, default_test_ht, "model_bs_{}.mdl", display_cm=True)
+#test_hyperparameter("epochs",[10,],iris_arch, iris_train, iris_test, "model_iris_{}.mdl", display_cm=True)
 
