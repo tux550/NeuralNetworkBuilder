@@ -11,7 +11,7 @@ Input.txt format
 
 // Architectures
 {depth} {input_size}
-{node_size} {activation_function} //TODO: for each layer
+{node_size} {activation_function} //FOR EACH LAYER
 {loss_function}
 
 // If train mode (train_load=1)
