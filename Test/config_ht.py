@@ -7,7 +7,8 @@ default_arch_ht = {
     #"activation_function":["relu","relu","relu","relu","relu","hypertan"],
     #"nodes_size": [100,100,24],
     #"activation_function":["hypertan","hypertan","hypertan"],
-    "loss_function":"mse",
+    "loss_function":"cross_entropy",
+    #"loss_function":"mse",
 }
 default_train_ht = {
     # TRAIN

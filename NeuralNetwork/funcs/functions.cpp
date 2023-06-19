@@ -5,6 +5,12 @@ alg::t_type s(alg::t_type x) {
     return 1 / (1+std::exp(-x));
 }
 
+alg::t_mat softmax(alg::t_mat y) {
+    y.for_each([](alg::t_type& val) { val = std::exp(val);});
+    alg::t_type all_sum = arma::accu(y);
+    return y/all_sum;
+}
+
 void relu(alg::t_type &x){
     if (x<=0) {x = 0;}
 }
@@ -31,11 +37,10 @@ void sigmoid_drv(alg::t_type &x){
 }
 
 
-alg::t_mat mse(alg::t_mat &y_true, alg::t_mat &y_pred) {
+alg::t_type mse(alg::t_mat &y_true, alg::t_mat &y_pred) {
     // MSE: SUM{(y-y')**2} * (1/n)
     alg::t_type invn = (1.0/arma::size(y_true)[1]);
-    return arma::pow((y_pred-y_true),2.0) * invn;
-    //return  arma::accu(arma::pow((a-b),2)) / arma::size(a)[1];
+    return arma::accu( arma::pow((y_pred-y_true),2.0) * invn );
 }
 
 alg::t_mat mse_drv(alg::t_mat &y_true, alg::t_mat &y_pred) {
@@ -43,5 +48,17 @@ alg::t_mat mse_drv(alg::t_mat &y_true, alg::t_mat &y_pred) {
     alg::t_mat dif = y_pred-y_true;
     alg::t_type invn = (1.0/arma::size(y_true)[1]);
     return dif.for_each([](alg::t_type& x) { x = x*2.0;}) * invn ;
-    //return arma::accu(a-b) * (2/arma::size(a)[1]);
+
+}
+
+
+alg::t_type cross_entropy(alg::t_mat &y_true, alg::t_mat &y_pred) {
+    // CrossEntropy: SUM{-y*log(y')}
+    alg::t_mat y_soft_pred = softmax(y_pred);
+    return (-1.0)*arma::accu(y_true % arma::log(y_soft_pred));
+}
+
+alg::t_mat cross_entropy_drv(alg::t_mat &y_true, alg::t_mat &y_pred) {
+    // drvCrossEntropy: SUM{y'-y}
+    return y_pred-y_true;
 }

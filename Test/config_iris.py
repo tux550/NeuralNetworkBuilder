@@ -5,7 +5,8 @@ iris_arch = {
     "activation_function":["relu","relu","relu","relu","relu","hypertan"],
     #"nodes_size": [60,60,60,3],
     #"activation_function":["hypertan","hypertan","hypertan","hypertan"],
-    "loss_function":"mse",
+    "loss_function":"cross_entropy",
+    #"loss_function":"mse",
 }
 
 iris_train = {

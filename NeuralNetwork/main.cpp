@@ -26,7 +26,8 @@ ai::Network nw_from_inputs( ) {
     std::vector<alg::t_dim> vec_nodes;
     std::vector<alg::t_fmat> vec_act_func;
     std::vector<alg::t_fmat> vec_act_drv;
-    alg::t_mm2m loss_func, loss_drv;
+    alg::t_mm2t loss_func;
+    alg::t_mm2m loss_drv;
     // Tmp
     alg::t_dim nodes;
     std::string str_act_func, str_loss_func;
@@ -61,6 +62,9 @@ ai::Network nw_from_inputs( ) {
     if (str_loss_func == "mse") {
         loss_func = mse;
         loss_drv = mse_drv;
+    }else if (str_loss_func == "cross_entropy") {
+        loss_func = cross_entropy;
+        loss_drv = cross_entropy_drv;
     } else {
         throw std::invalid_argument("Invalid loss func");
     }

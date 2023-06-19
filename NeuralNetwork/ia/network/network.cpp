@@ -7,13 +7,13 @@
 namespace ai
 {
     // Constructor
-    Network::Network(alg::t_mm2m _loss, alg::t_mm2m _loss_drv):
+    Network::Network(alg::t_mm2t _loss, alg::t_mm2m _loss_drv):
         layers{},
         loss{_loss},
         loss_drv{_loss_drv}
         {}
 
-    Network Network::FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_fmat> vec_act_func, std::vector<alg::t_fmat> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv) {
+    Network Network::FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_fmat> vec_act_func, std::vector<alg::t_fmat> vec_drv_func, alg::t_mm2t _loss, alg::t_mm2m _loss_drv) {
         auto nw = ai::Network(_loss, _loss_drv);
 
         for (auto i=0; i<vec_nodes_num.size() -1 ; i++) {
@@ -68,7 +68,7 @@ namespace ai
         for (t_count i = 0; i < epochs; i++)
         {   
             // Epoch total error
-            alg::t_type total_error;
+            alg::t_type total_error = 0;
             alg::t_mat error;
 
             // Reshuffle
@@ -78,7 +78,7 @@ namespace ai
                 // Forward Propagation
                 auto res = predict(x_train[idx]);
                 // Error
-                total_error += arma::accu(loss(y_train[idx], res));
+                total_error += loss(y_train[idx], res);
                 error = loss_drv(y_train[idx], res);
                 // Backward Propagation
                 for (int k = layers.size()-1; k>= 0; k--){

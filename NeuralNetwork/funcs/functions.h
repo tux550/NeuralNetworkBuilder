@@ -13,7 +13,9 @@ void hypertan(alg::t_type &x);
 void hypertan_drv(alg::t_type &x);
 void sigmoid(alg::t_type &x);
 void sigmoid_drv(alg::t_type &x);
-alg::t_mat mse(alg::t_mat &a, alg::t_mat &b);
+alg::t_type mse(alg::t_mat &a, alg::t_mat &b);
 alg::t_mat mse_drv(alg::t_mat &a, alg::t_mat &b);
+alg::t_type cross_entropy(alg::t_mat &a, alg::t_mat &b);
+alg::t_mat cross_entropy_drv(alg::t_mat &a, alg::t_mat &b);
 
 #endif

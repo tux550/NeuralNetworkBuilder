@@ -4,7 +4,7 @@
 40 hypertan
 40 hypertan
 3 hypertan
-mse
+cross_entropy
 
 ../Dataset/x.csv ../Dataset/y.csv
 50 0.01
