@@ -24,8 +24,8 @@ ai::Network nw_from_inputs( ) {
     // Init
     alg::t_dim depth;
     std::vector<alg::t_dim> vec_nodes;
-    std::vector<alg::t_m2m> vec_act_func;
-    std::vector<alg::t_m2m> vec_act_drv;
+    std::vector<alg::t_fmat> vec_act_func;
+    std::vector<alg::t_fmat> vec_act_drv;
     alg::t_mm2m loss_func, loss_drv;
     // Tmp
     alg::t_dim nodes;

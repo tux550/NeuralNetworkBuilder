@@ -13,7 +13,7 @@ namespace ai
         loss_drv{_loss_drv}
         {}
 
-    Network Network::FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_m2m> vec_act_func, std::vector<alg::t_m2m> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv) {
+    Network Network::FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_fmat> vec_act_func, std::vector<alg::t_fmat> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv) {
         auto nw = ai::Network(_loss, _loss_drv);
 
         for (auto i=0; i<vec_nodes_num.size() -1 ; i++) {

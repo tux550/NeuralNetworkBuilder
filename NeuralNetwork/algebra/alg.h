@@ -17,7 +17,7 @@ namespace alg
 
 
     // Function types
-    using t_t2t  = std::function<t_type(t_type)>;
+    using t_fmat  = std::function<void(t_type&)>;
     using t_m2t  = std::function<t_type(t_mat&)>;
     using t_m2m  = std::function<t_mat(t_mat&)>;
     using t_mm2t  = std::function<t_type(t_mat&,t_mat&)>;

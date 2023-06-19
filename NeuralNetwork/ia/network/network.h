@@ -26,7 +26,7 @@ namespace ai
         public:
             // Constructor
             Network(alg::t_mm2m _loss, alg::t_mm2m _loss_drv);
-            static Network FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_m2m> vec_act_func, std::vector<alg::t_m2m> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv);
+            static Network FullMLP(std::vector<alg::t_dim> vec_nodes_num, std::vector<alg::t_fmat> vec_act_func, std::vector<alg::t_fmat> vec_drv_func, alg::t_mm2m _loss, alg::t_mm2m _loss_drv);
             // Destructor
             ~Network();
 

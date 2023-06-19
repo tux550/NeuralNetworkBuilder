@@ -1,36 +1,20 @@
 #include "./functions.h"
 
-alg::t_mat relu(alg::t_mat &X){
-    alg::t_mat res = X;
-    res.for_each( [](alg::t_type& val) {
-        if (val<=0) {val = 0;}
-    });
-    return res;
+void relu(alg::t_type &x){
+    if (x<=0) {x = 0;}
 }
 
-alg::t_mat relu_drv(alg::t_mat &X){
-    alg::t_mat res = X;
-    res.for_each( [](alg::t_type& val) {
-        if (val>0) {val = 1;}
-        else {val = 0;}
-    });
-    return res;
+void relu_drv(alg::t_type &x){
+    if (x>0) {x = 1;}
+    else {x = 0;}
 }
 
-alg::t_mat hypertan(alg::t_mat &X){
-    alg::t_mat res = X;
-    res.for_each( [](alg::t_type& val) {
-        val = std::tanh(val);
-    });
-    return res;
+void hypertan(alg::t_type &x){
+    x = std::tanh(x);
 }
 
-alg::t_mat hypertan_drv(alg::t_mat &X){
-    alg::t_mat res = X;
-    res.for_each( [](alg::t_type& val) {
-        val = 1-std::pow(std::tanh(val),2);
-    });
-    return res;
+void hypertan_drv(alg::t_type &x){
+    x = 1-std::pow(std::tanh(x),2);
 }
 
 alg::t_mat mse(alg::t_mat &y_true, alg::t_mat &y_pred) {
