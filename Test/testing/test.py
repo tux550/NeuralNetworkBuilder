@@ -1,7 +1,7 @@
 from utils.metrics import get_metrics
 from .table import table_results
 
-def test_hyperparameter(hp_name, hp_list, mlp_dict, files_dict, name_template, display_cm=False):
+def test_hyperparameter(hp_name, hp_list, mlp_dict, files_dict, name_prefix, display_cm=False):
     # Results
     results = dict()
     # For each value
@@ -12,9 +12,9 @@ def test_hyperparameter(hp_name, hp_list, mlp_dict, files_dict, name_template, d
         else:
             raise f"Hyperparameter {hp_name} does not exist"
         # Get metrics
-        metrics = get_metrics(mlp_dict | files_dict, name_template.format(str(hp)), display_cm=display_cm)
+        metrics = get_metrics(mlp_dict | files_dict, name_prefix+f"_{str(hp_name)}-{str(hp)}", display_cm=display_cm)
         # Save to results
         results[hp] = metrics
     # Display
-    table_results(hp_name, results)
+    table_results(hp_name, results, name_prefix)
 

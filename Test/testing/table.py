@@ -2,7 +2,7 @@ import numpy as np
 from rich.console import Console
 from rich.table import Table
 
-def table_results(parameter_name, results_dict):
+def table_results(parameter_name, results_dict, save_filename):
     title = f"Test Parameter: {parameter_name}"
     table = Table(title=title)
     table.add_column(f"{parameter_name}", justify="right", style="cyan", no_wrap=True)
@@ -32,4 +32,4 @@ def table_results(parameter_name, results_dict):
 
     console = Console(record=True)
     console.print(table)
-    console.save_svg(f"fig/table_{parameter_name}.svg")
+    console.save_svg(f"fig/table_{save_filename}.svg")

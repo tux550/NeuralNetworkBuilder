@@ -3,9 +3,9 @@ from sklearn.metrics import precision_score, recall_score, f1_score, balanced_ac
 from .run import run_train_test_save
 from .np import numpy_from_file
 
-def get_metrics(parameters_dict, save_path, display_cm=True):
+def get_metrics(parameters_dict, save_prefix_path, display_cm=True):
     # Create parameters dictionary
-    parameters_dict["filename_export_model"]=save_path
+    parameters_dict["filename_export_model"]=save_prefix_path+".mdl"
     # Y PRED
     y_pred = run_train_test_save(parameters_dict)
     y_pred = np.argmax(y_pred, axis=1)
