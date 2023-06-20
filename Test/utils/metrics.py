@@ -5,7 +5,7 @@ from .np import numpy_from_file
 
 def get_metrics(parameters_dict, save_prefix_path, display_cm=True):
     # Create parameters dictionary
-    parameters_dict["filename_export_model"]=save_prefix_path+".mdl"
+    parameters_dict["filename_export_model"]="export/"+save_prefix_path+".mdl"
     # Y PRED
     y_pred = run_train_test_save(parameters_dict)
     y_pred = np.argmax(y_pred, axis=1)

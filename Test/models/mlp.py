@@ -5,7 +5,7 @@ MLP_CONFIG = {
     "activation_function":["relu","relu","relu","relu","relu","sigmoid"],
     "loss_function":"cross_entropy",
     # TRAIN
-    "epochs":100,
+    "epochs":500,
     "alpha":0.001,
 }
 
