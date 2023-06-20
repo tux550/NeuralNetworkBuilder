@@ -18,7 +18,7 @@ for d in depths:
     for n in nsize:
 
         # SKIP COMPLETED
-        if (d==1) or (d==2 and n==50)
+        if (d==1) or (d==2 and n==50):
             continue
         # ----
 
@@ -29,7 +29,7 @@ for d in depths:
         test_hyperparameter("alpha",alpha_ls, MLP_CONFIG,FILES_CONFIG, f"reluhypertan_modeldepth{d}_nsize{n}", display_cm=True)
 
         # SKIP COMPLETED
-        if (d==2 and n==100)
+        if (d==2 and n==100):
             continue
         # ----
 
