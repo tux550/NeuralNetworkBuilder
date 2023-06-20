@@ -5,8 +5,8 @@ MLP_CONFIG = {
     "activation_function":["relu","relu","relu","relu","relu","sigmoid"],
     "loss_function":"cross_entropy",
     # TRAIN
-    "epochs":500,
-    "alpha":0.001,
+    "epochs":1000,
+    "alpha":0.01,
 }
 
 def gen_relu_and_final_model(nodes_size, final="sigmoid", default_config=MLP_CONFIG):
