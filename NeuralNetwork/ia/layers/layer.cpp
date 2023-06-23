@@ -23,7 +23,7 @@ namespace ai{
         );
     }
 
-    std::ostream& operator<<(std::ostream& os, const BaseLayer& layer) {
+    std::ostream& operator<<(std::ostream& os, BaseLayer& layer) {
         (&layer)->write(os); // Overload
         return os;
     }

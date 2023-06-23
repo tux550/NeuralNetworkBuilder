@@ -23,11 +23,11 @@ namespace ai
         virtual alg::t_mat forward_propagation_implementation(alg::t_mat &im) = 0;
         virtual alg::t_mat backward_propagation_implementation(alg::t_mat &out_error, alg::t_type alpha) = 0;  
         // Write & Read
-        virtual void write(std::ostream& os) const = 0;
+        virtual void write(std::ostream& os) = 0;
         virtual void read(std::istream& os) = 0;
     };
 
-    std::ostream& operator<<(std::ostream& os, const BaseLayer& layer);
+    std::ostream& operator<<(std::ostream& os, BaseLayer& layer);
     std::istream& operator>> (std::istream& is, BaseLayer&  dt);
 }
 

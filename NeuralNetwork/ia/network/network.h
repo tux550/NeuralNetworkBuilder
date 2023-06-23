@@ -40,7 +40,7 @@ namespace ai
             // Export
             void export_model(std::string out_filename);
             // Friend functions
-            friend std::ostream& operator<<(std::ostream& os, const Network& nw);
+            friend std::ostream& operator<<(std::ostream& os, Network& nw);
             friend std::istream& operator>>(std::istream& is, Network& nw);
     };
 }

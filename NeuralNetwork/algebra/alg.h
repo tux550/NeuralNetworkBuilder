@@ -31,6 +31,7 @@ namespace alg
 
     // Fill matrix
     void input_mat(std::istream& is, t_mat &m);
+    void output_mat(std::ostream& os, t_mat &m);
 }
 
 #endif

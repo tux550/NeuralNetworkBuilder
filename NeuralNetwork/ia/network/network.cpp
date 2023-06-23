@@ -100,7 +100,7 @@ namespace ai
         return;
     }
 
-    std::ostream& operator<<(std::ostream& os, const Network& nw) {
+    std::ostream& operator<<(std::ostream& os, Network& nw) {
         for (auto &l: nw.layers) {
             os << (*l) << std::endl;
         }

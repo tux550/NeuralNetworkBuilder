@@ -19,7 +19,7 @@ namespace ai{
         void set_weights(alg::t_mat &w);
         alg::t_mat get_weights();
         // Write
-        void write(std::ostream& os) const;
+        void write(std::ostream& os);
         void read(std::istream& is);
     };
 }

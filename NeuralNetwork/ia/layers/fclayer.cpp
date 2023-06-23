@@ -59,8 +59,9 @@ namespace ai{
         return weights_mat;
     }
     // Write
-    void FCLayer::write(std::ostream& os) const {
-        os << weights_mat << std::endl << bias << std::endl;
+    void FCLayer::write(std::ostream& os) {
+        alg::output_mat(os, weights_mat);
+        alg::output_mat(os, bias);
     }
     void FCLayer::read(std::istream& is) {
         alg::input_mat(is, weights_mat);

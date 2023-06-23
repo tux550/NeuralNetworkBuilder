@@ -15,7 +15,7 @@ namespace ai{
             ActLayer(alg::t_dim n_size, alg::t_fmat _act_func, alg::t_fmat _drv_func);
             alg::t_mat forward_propagation_implementation(alg::t_mat &im);
             alg::t_mat backward_propagation_implementation(alg::t_mat &out_error, alg::t_type alpha);
-            void write(std::ostream& os) const;
+            void write(std::ostream& os);
             void read(std::istream& is);
     };
 };
