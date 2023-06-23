@@ -17,26 +17,16 @@ alpha_ls = [0.1,0.01,0.001]
 for d in depths:
     for n in nsize:
 
-        # SKIP COMPLETED
-        if (d==1) or (d==2 and n==50):
-            continue
-        # ----
-
         nodes_size = [n for _ in range(d)] + [24,]
         # Get model of depth d with n nodes per layer
         mdl = gen_relu_and_final_model(nodes_size, final="hypertan")
         # TEST ALPHA:
-        test_hyperparameter("alpha",alpha_ls, MLP_CONFIG,FILES_CONFIG, f"reluhypertan_modeldepth{d}_nsize{n}", display_cm=True)
-
-        # SKIP COMPLETED
-        if (d==2 and n==100):
-            continue
-        # ----
+        test_hyperparameter("alpha",alpha_ls, mdl,FILES_CONFIG, f"reluhypertan_modeldepth{d}_nsize{n}", display_cm=True)
 
         # Get model of depth d with n nodes per layer
         mdl = gen_relu_and_final_model(nodes_size, final="sigmoid")
         # TEST ALPHA:
-        test_hyperparameter("alpha",alpha_ls, MLP_CONFIG,FILES_CONFIG, f"relusigmoid_modeldepth{d}_nsize{n}", display_cm=True)
+        test_hyperparameter("alpha",alpha_ls, mdl,FILES_CONFIG, f"relusigmoid_modeldepth{d}_nsize{n}", display_cm=True)
 
 
 
