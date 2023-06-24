@@ -1,7 +1,7 @@
 # IA-p3
 
 ## Ejecucción
-1. Instalra armadillo: [Ubuntu](http://codingadventures.org/2020/05/24/how-to-install-armadillo-library-in-ubuntu/)
+1. Instalar armadillo: [Ubuntu](http://codingadventures.org/2020/05/24/how-to-install-armadillo-library-in-ubuntu/)
 2. Compilar C++
    ```
    cd NeuralNetwork
