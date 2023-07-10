@@ -1,4 +1,4 @@
-# IA-p3
+# NeuralNetworkBuilder
 
 ## Ejecucción
 1. Instalar armadillo: [Ubuntu](http://codingadventures.org/2020/05/24/how-to-install-armadillo-library-in-ubuntu/)
